@@ -135,14 +135,15 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 .b2{background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:18px;padding:14px 24px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 5px 0 rgba(140,20,80,.5),0 8px 24px rgba(255,90,158,.3),var(--shine)}
 .b2:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(140,20,80,.5),0 4px 12px rgba(255,90,158,.2),var(--shine)}
 /* ===== SPIN WHEEL ===== */
-#spinScreen{justify-content:center;align-items:center;text-align:center;padding:20px}
-.wheel-wrap{position:relative;width:260px;height:260px;margin:0 auto 16px}
-.wheel-canvas{width:260px;height:260px;border-radius:50%;border:5px solid var(--gold);box-shadow:0 6px 0 rgba(0,0,0,.25),0 0 40px rgba(255,194,51,.3),0 0 0 6px rgba(255,194,51,.1),inset 0 0 20px rgba(0,0,0,.2)}
-.wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:32px;z-index:2;filter:drop-shadow(0 3px 8px rgba(0,0,0,.3));animation:pointerBob 1s ease-in-out infinite}
-.spin-btn{background:linear-gradient(135deg,var(--gold),var(--amber));border:none;border-radius:40px;padding:14px 42px;font-size:17px;font-weight:800;color:#fff;cursor:pointer;font-family:'Baloo 2',cursive;box-shadow:0 6px 0 rgba(180,120,0,.5),0 10px 30px rgba(255,194,51,.3),var(--shine);margin-top:10px;text-shadow:0 2px 4px rgba(0,0,0,.2)}
+#spinScreen{align-items:center;text-align:center;padding:0 14px 90px}
+.wheel-wrap{position:relative;width:min(220px,55vw);height:min(220px,55vw);margin:4px auto 8px}
+.wheel-canvas{width:100%;height:100%;border-radius:50%;border:4px solid var(--gold);box-shadow:0 4px 0 rgba(0,0,0,.25),0 0 20px rgba(255,194,51,.25),inset 0 0 15px rgba(0,0,0,.15)}
+.wheel-pointer{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:28px;z-index:2;filter:drop-shadow(0 3px 8px rgba(0,0,0,.3));animation:pointerBob 1s ease-in-out infinite}
+.spin-btn{background:linear-gradient(135deg,var(--gold),var(--amber));border:none;border-radius:40px;padding:12px 36px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;font-family:'Baloo 2',cursive;box-shadow:0 4px 0 rgba(180,120,0,.5),0 6px 16px rgba(255,194,51,.3),var(--shine);text-shadow:0 2px 4px rgba(0,0,0,.2);position:relative;overflow:hidden}
 .spin-btn:disabled{opacity:.3;box-shadow:none}
-.spin-btn:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(180,120,0,.5),0 4px 12px rgba(255,194,51,.2),var(--shine)}
-.spin-result{font-family:'Baloo 2',cursive;font-size:24px;color:var(--gold);margin:12px 0;text-shadow:0 0 20px rgba(255,194,51,.4)}
+.spin-btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(180,120,0,.5),0 4px 12px rgba(255,194,51,.2),var(--shine)}
+.spin-btn::before{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:btnShine 3s infinite}
+.spin-result{font-family:'Baloo 2',cursive;font-size:20px;color:var(--gold);margin:6px 0;text-shadow:0 0 20px rgba(255,194,51,.4);min-height:26px}
 /* ===== NAV ===== */
 .bnav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:rgba(0,0,0,.45);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.06);padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:100}
 .ni{display:flex;flex-direction:column;align-items:center;padding:4px 12px;cursor:pointer;opacity:.35;transition:all .25s;border-radius:12px}
@@ -211,15 +212,15 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 .sub-lv-bar .f{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--pink),var(--gold));transition:width .5s;box-shadow:0 0 10px rgba(255,90,158,.4)}
 .sub-lv-count{font-size:12px;font-weight:800;color:var(--gold);text-shadow:0 0 12px rgba(255,194,51,.3)}
 /* ===== EXCHANGE & REWARDS ===== */
-.exchange-box{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;margin:10px 16px 0;background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border-radius:18px;border:1.5px solid rgba(255,194,51,.2);box-shadow:0 4px 0 rgba(0,0,0,.15),var(--shine)}
+.exchange-box{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 14px;margin:6px 16px;background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border-radius:16px;border:1.5px solid rgba(255,194,51,.2);box-shadow:0 3px 0 rgba(0,0,0,.15),var(--shine)}
 .exchange-info{font-size:13px;font-weight:800;color:var(--text)}
 .exchange-info .star-count{color:var(--gold);font-size:16px;text-shadow:0 0 12px rgba(255,194,51,.4)}
-.exchange-btn{background:linear-gradient(135deg,var(--gold),var(--amber));border:none;border-radius:14px;padding:10px 18px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 4px 0 rgba(180,120,0,.4),0 6px 16px rgba(255,194,51,.25),var(--shine);transition:all .15s;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.2)}
-.exchange-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(180,120,0,.4),var(--shine)}
+.exchange-btn{background:linear-gradient(135deg,var(--gold),var(--amber));border:none;border-radius:14px;padding:8px 16px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 3px 0 rgba(180,120,0,.4),var(--shine);transition:all .15s;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.exchange-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(180,120,0,.4),var(--shine)}
 .exchange-btn:disabled{opacity:.3;box-shadow:none;cursor:default}
-.reward-section{margin:12px 16px;padding-bottom:90px}
-.reward-title{font-family:'Baloo 2',cursive;font-size:15px;color:var(--dim);margin-bottom:6px}
-.reward-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.reward-section{margin:8px 16px;padding-bottom:10px}
+.reward-title{font-family:'Baloo 2',cursive;font-size:14px;color:var(--dim);margin-bottom:4px}
+.reward-list{display:flex;flex-direction:column;gap:4px;max-height:150px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .reward-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border-radius:14px;border:1px solid rgba(255,255,255,.08);box-shadow:0 2px 0 rgba(0,0,0,.1);font-size:12px;font-weight:700}
 .reward-item .ri-prize{flex:1;font-weight:800;color:var(--text)}
 .reward-item .ri-date{font-size:10px;color:var(--dim);font-weight:600}
@@ -376,17 +377,17 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 <!-- SPIN WHEEL -->
 <div id="spinScreen" class="screen">
   <div class="topbar"><button class="bbk" onclick="showScreen('map')">← Về</button><div style="display:flex;gap:4px"><div class="pill"><span class="i">⭐</span><span id="S3">0</span></div><div class="pill"><span class="i">🎫</span><span id="T2">0</span> vé</div></div></div>
-  <h2 style="font-family:'Baloo 2',cursive;font-size:22px;color:var(--gold);margin-top:12px;text-shadow:0 0 20px rgba(255,194,51,.4)">🎡 Vòng Quay May Mắn</h2>
-  <div class="exchange-box">
-    <div class="exchange-info">⭐ <span class="star-count" id="exStars">0</span></div>
-    <button class="exchange-btn" id="exBtn" onclick="exchangeStars()">Đổi 3⭐ → 1🎫</button>
-  </div>
-  <div class="wheel-wrap" style="margin-top:10px">
+  <h2 style="font-family:'Baloo 2',cursive;font-size:20px;color:var(--gold);margin:8px 0 4px;text-shadow:0 0 20px rgba(255,194,51,.4)">🎡 Vòng Quay May Mắn</h2>
+  <div class="wheel-wrap">
     <div class="wheel-pointer">📍</div>
     <canvas id="wheelCanvas" class="wheel-canvas" width="260" height="260"></canvas>
   </div>
   <button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎰 QUAY!</button>
   <div class="spin-result" id="spinResult"></div>
+  <div class="exchange-box">
+    <div class="exchange-info">⭐ <span class="star-count" id="exStars">0</span></div>
+    <button class="exchange-btn" id="exBtn" onclick="exchangeStars()">Đổi 3⭐ → 1🎫</button>
+  </div>
   <div id="spinMascot" style="margin-top:4px"></div>
   <div class="reward-section">
     <div class="reward-title">🎁 Phần thưởng đã nhận</div>
