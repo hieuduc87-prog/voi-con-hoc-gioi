@@ -394,6 +394,12 @@ function CatSvg(sz=60,mood='happy'){
   </svg>`;
 }
 
+// ===== MASCOT PAIR HELPER =====
+function Duo(elSz,catSz,mood,anim){
+  const catM=mood==='excited'?'happy':mood;
+  return`<div style="display:inline-flex;align-items:end${anim?';animation:'+anim:''}"><div class="a-float">${ElSvg(elSz,mood)}</div><div style="margin-left:${-elSz*.15}px;animation:float 3s .2s ease-in-out infinite">${CatSvg(catSz,catM)}</div></div>`;
+}
+
 // ===== DATA =====
 let SK='voicon_lop1_v1';let D=ld();
 function df(){return{level:1,xp:0,stars:0,gems:0,streak:0,lp:null,sp:{},lvDone:{},tc:0,tp:0,combo:0,mc:0,tickets:0,daily:{d:null,m:[]}}}
@@ -517,9 +523,8 @@ function renderMap(){
   const speeches=[['Cùng đếm số nào! 🐘','Toán dễ lắm! Voi giúp nè! 🎓'],['Học chữ cùng Voi nhé! 📖','Mèo Bông thích đọc sách! 🐱'],['Let\'s learn English! 🌍','Elephant loves ABC! 🐘']];
   const sp=speeches[cSub];
   document.getElementById('mascotRow').innerHTML=`<div class="bubble" style="margin-bottom:-2px;font-size:12px">${sp[R(0,sp.length-1)]}</div>
-  <div style="display:inline-flex;align-items:end;gap:0;cursor:pointer" onclick="this.style.animation='wiggle .8s ease';setTimeout(()=>this.style.animation='',800)">
-    <div class="a-float">${ElSvg(70,'happy')}</div>
-    <div style="margin-left:-12px;animation:float 3s .2s ease-in-out infinite">${CatSvg(50,'happy')}</div>
+  <div style="cursor:pointer" onclick="this.style.animation='wiggle .8s ease';setTimeout(()=>this.style.animation='',800)">
+    ${Duo(75,52,'happy')}
   </div>`;
   // Level nodes (10 levels)
   const key=sub.id;
@@ -542,8 +547,8 @@ function renderMap(){
 }
 
 // ===== START =====
-function startLv(lv){const sub=SUBS[cSub];cLv=lv;qs=[];const skills=sub.skills;for(let i=0;i<QN;i++){const sk=skills[R(0,skills.length-1)];qs.push(sk.gen(lv))}qi=0;lives=3;correct=0;combo=0;cSkill={id:`${sub.id}_lv${lv}`,isLv:true};showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=ElSvg(45,'happy');document.getElementById('mG').style.display='block';showQ()}
-function startSk(id){const sub=SUBS[cSub];const sk=sub.skills.find(s=>s.id===id);if(!sk)return;cSkill=sk;cLv=Math.min(D.level,10);qs=[];for(let i=0;i<QN;i++)qs.push(sk.gen(cLv));qi=0;lives=3;correct=0;combo=0;showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=ElSvg(45,'happy');document.getElementById('mG').style.display='block';showQ()}
+function startLv(lv){const sub=SUBS[cSub];cLv=lv;qs=[];const skills=sub.skills;for(let i=0;i<QN;i++){const sk=skills[R(0,skills.length-1)];qs.push(sk.gen(lv))}qi=0;lives=3;correct=0;combo=0;cSkill={id:`${sub.id}_lv${lv}`,isLv:true};showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=Duo(45,30,'happy');document.getElementById('mG').style.display='block';showQ()}
+function startSk(id){const sub=SUBS[cSub];const sk=sub.skills.find(s=>s.id===id);if(!sk)return;cSkill=sk;cLv=Math.min(D.level,10);qs=[];for(let i=0;i<QN;i++)qs.push(sk.gen(cLv));qi=0;lives=3;correct=0;combo=0;showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=Duo(45,30,'happy');document.getElementById('mG').style.display='block';showQ()}
 function replay(){if(cSkill&&cSkill.isLv)startLv(cLv);else if(cSkill)startSk(cSkill.id)}
 function renderH(){const h=document.getElementById('hD');h.innerHTML='';for(let i=0;i<3;i++){const s=document.createElement('span');s.className='ht'+(i>=lives?' x':'');s.textContent='❤️';h.appendChild(s)}}
 
@@ -553,7 +558,7 @@ function showQ(){
   const fs=q.text.length>50?'16px':q.text.length>30?'20px':'26px';
   const sc=q.isT&&q.options.some(o=>o.length>12);
   a.innerHTML=`<div class="tbar"><div class="f" id="tF" style="width:100%"></div></div>
-  <div style="display:flex;gap:8px;margin-bottom:8px;justify-content:center"><div style="background:rgba(255,255,255,.06);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:700"><span style="color:var(--yellow)">${qi+1}/${QN}</span></div><div style="background:rgba(255,255,255,.06);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:700">🔥<span style="color:var(--green)">${combo}</span></div></div>
+  <div style="display:flex;gap:8px;margin-bottom:8px;justify-content:center"><div style="background:#fff;border-radius:10px;padding:4px 12px;font-size:11px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,.06)"><span style="color:var(--orange)">${qi+1}/${QN}</span></div><div style="background:#fff;border-radius:10px;padding:4px 12px;font-size:11px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,.06)">🔥<span style="color:var(--coral)">${combo}</span></div></div>
   <div class="qcard"><div class="qt" style="font-size:${fs};white-space:pre-line">${q.text}</div><div class="qh">${q.hint}</div>
   <div class="agrid ${sc?'sc':''}">${q.options.map(o=>`<button class="abtn" data-v="${encodeURIComponent(String(q.isT?o:o))}" onclick="chk(this)">${q.isT?o:o.toLocaleString()}</button>`).join('')}</div></div>`;
   clearInterval(tI);tI=setInterval(()=>{tL-=.1;const f=document.getElementById('tF');if(f)f.style.width=Math.max(0,tL/TQ_*100)+'%';if(tL<=0){clearInterval(tI);hW();setTimeout(nQ,1500)}},100);
@@ -567,12 +572,12 @@ function chk(b){
 const CM=[{t:'Giỏi!',s:'🐘 Voi vui lắm!'},{t:'Đúng rồi!',s:'🐱 Mèo khen nè!'},{t:'Tuyệt!',s:'Combo lên! 🔥'},{t:'Wow!',s:'Siêu sao nhí! ⭐'},{t:'Amazing!',s:'Keep going! 💪'}];
 const WM=[{t:'Oops!',s:'Thử lại nha! 💕'},{t:'Hmm...',s:'Voi tin bạn! 🐘'}];
 function hC(){correct++;combo++;if(combo>D.mc)D.mc=combo;D.tc++;document.getElementById('cC').textContent=correct;
-  const g=document.getElementById('mG');g.innerHTML=ElSvg(45,combo>=3?'love':'excited');g.classList.add('a-bounce');setTimeout(()=>g.classList.remove('a-bounce'),600);
+  const g=document.getElementById('mG');g.innerHTML=Duo(45,30,combo>=3?'love':'excited');g.classList.add('a-bounce');setTimeout(()=>g.classList.remove('a-bounce'),600);
   showEnc(true);if(combo>=2){const c=document.getElementById('comboD');c.textContent=`${combo}x COMBO 🔥`;c.classList.remove('show');requestAnimationFrame(()=>c.classList.add('show'));setTimeout(()=>c.classList.remove('show'),1500)}}
-function hW(){lives--;combo=0;renderH();const g=document.getElementById('mG');g.innerHTML=ElSvg(45,'sad');g.classList.add('a-sad');setTimeout(()=>g.classList.remove('a-sad'),500);showEnc(false)}
+function hW(){lives--;combo=0;renderH();const g=document.getElementById('mG');g.innerHTML=Duo(45,30,'sad');g.classList.add('a-sad');setTimeout(()=>g.classList.remove('a-sad'),500);showEnc(false)}
 function nQ(){qi++;showQ()}
 function showEnc(ok){const ms=ok?CM:WM,m=ms[R(0,ms.length-1)];const o=document.createElement('div');o.className='enc';o.innerHTML=`<div class="et">${m.t}</div><div class="es">${m.s}</div>`;document.body.appendChild(o);setTimeout(()=>o.remove(),1500)}
-function tapM(){const g=document.getElementById('mG');g.innerHTML=ElSvg(45,['excited','love','happy'][R(0,2)]);g.classList.add('a-wiggle');setTimeout(()=>g.classList.remove('a-wiggle'),800);const w=['Gâu!','Paoo!','🐾','💕','🐘','Yay!'][R(0,5)];const e=document.createElement('div');e.className='tap-e';e.textContent=w;e.style.right='10px';e.style.bottom='70px';document.body.appendChild(e);setTimeout(()=>e.remove(),1000)}
+function tapM(){const g=document.getElementById('mG');g.innerHTML=Duo(45,30,['excited','love','happy'][R(0,2)]);g.classList.add('a-wiggle');setTimeout(()=>g.classList.remove('a-wiggle'),800);const w=['Gâu!','Paoo!','🐾','💕','🐘','Yay!'][R(0,5)];const e=document.createElement('div');e.className='tap-e';e.textContent=w;e.style.right='10px';e.style.bottom='70px';document.body.appendChild(e);setTimeout(()=>e.remove(),1000)}
 
 function endR(){
   clearInterval(tI);document.getElementById('mG').style.display='none';
@@ -590,7 +595,7 @@ function endR(){
   sbSaveHistory(subName,cLv,correct,QN,stars,xpE);
   showScreen('result');
   const mood=stars>=3?'love':stars>=2?'excited':stars>=1?'happy':'sad';
-  document.getElementById('rScene').innerHTML=`<div style="display:inline-flex;align-items:end" class="${stars>=2?'a-wiggle':''}">${ElSvg(stars>=2?100:80,mood)}<div style="margin-left:-10px">${CatSvg(50,mood)}</div></div>`;
+  document.getElementById('rScene').innerHTML=`<div class="${stars>=2?'a-wiggle':''}">${Duo(stars>=2?100:80,stars>=2?65:50,mood)}</div>`;
   document.getElementById('rT').textContent=stars>=3?'XUẤT SẮC! 🏆':stars>=2?'Giỏi lắm! 🎉':stars>=1?'Cố gắng thêm! 💪':'Lần sau nhé! 🤗';
   document.getElementById('rS').textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
   const sp3=['Voi tự hào lắm! 🐘💕','Mèo Bông nhảy múa! 🐱✨','Siêu giỏi! 🌟'];
@@ -620,7 +625,7 @@ function drawWheel(){
   }
   document.getElementById('spinBtn').disabled=D.tickets<=0;
   document.getElementById('spinResult').textContent=D.tickets<=0?'Hết vé rồi! Chơi thêm nhé!':'';
-  document.getElementById('spinMascot').innerHTML=ElSvg(60,'happy');
+  document.getElementById('spinMascot').innerHTML=Duo(60,40,'happy');
   upUI();
 }
 function spinWheel(){
@@ -646,7 +651,7 @@ function spinWheel(){
       else{D.gems+=3;msg='🍀 +3 💎 May mắn!'}
       sv();upUI();
       document.getElementById('spinResult').textContent=msg;
-      document.getElementById('spinMascot').innerHTML=`<div class="a-wiggle" style="display:inline-block">${ElSvg(60,'love')}</div>`;
+      document.getElementById('spinMascot').innerHTML=`<div class="a-wiggle" style="display:inline-block">${Duo(60,40,'love')}</div>`;
       spawnConf();
       setTimeout(()=>{document.getElementById('spinBtn').disabled=D.tickets<=0;drawWheel()},2000);
     }
@@ -664,7 +669,7 @@ function renderProf(){
   document.getElementById('pLv').textContent=`Level ${D.level}`;
   document.getElementById('xF').style.width=p+'%';document.getElementById('xC').textContent=D.xp;document.getElementById('xN').textContent=xf;
   document.getElementById('pSk').textContent=D.streak;
-  document.getElementById('pAv').innerHTML=`<div style="display:inline-flex;align-items:end">${ElSvg(60,'happy')}<div style="margin-left:-8px">${CatSvg(40,'happy')}</div></div>`;
+  document.getElementById('pAv').innerHTML=Duo(70,48,'happy');
   sv();upUI();
 }
 
@@ -749,8 +754,8 @@ const _svOrig=sv;let _sbTimer=null;
 sv=function(){_svOrig();clearTimeout(_sbTimer);_sbTimer=setTimeout(sbSave,3000)};
 
 // INIT
-document.getElementById('loginArt').innerHTML=`<div style="display:inline-flex;align-items:end;gap:0"><div class="a-float">${ElSvg(90,'excited')}</div><div style="margin-left:-14px;animation:float 3s .3s ease-in-out infinite">${CatSvg(65,'happy')}</div></div>`;
-document.getElementById('splashArt').innerHTML=`<div style="display:inline-flex;align-items:end;gap:0"><div class="a-float">${ElSvg(110,'excited')}</div><div style="margin-left:-18px;animation:float 3s .3s ease-in-out infinite">${CatSvg(80,'happy')}</div></div>`;
+document.getElementById('loginArt').innerHTML=Duo(95,65,'excited');
+document.getElementById('splashArt').innerHTML=Duo(115,80,'excited');
 tryAutoLogin();
 </script>
 </body>
