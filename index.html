@@ -585,9 +585,50 @@ function renderProf(){
 
 function spawnConf(){const c=document.getElementById('confetti');c.innerHTML='';const cols=['#fbbf24','#3b82f6','#f472b6','#22d3ee','#4ade80','#fb7185'];for(let i=0;i<35;i++){const p=document.createElement('div');p.className='conf';p.style.left=R(0,100)+'%';p.style.background=cols[R(0,5)];p.style.setProperty('--del',(R(0,20)/10)+'s');p.style.setProperty('--dur',(R(20,35)/10)+'s');p.style.width=R(5,10)+'px';p.style.height=R(5,10)+'px';p.style.borderRadius=Math.random()>.5?'50%':'2px';c.appendChild(p)}setTimeout(()=>c.innerHTML='',4000)}
 
+// ===== SUPABASE SYNC =====
+const SB_URL='https://phfjjdbspcviktlwvtfp.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoZmpqZGJzcGN2aWt0bHd2dGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODY5ODYsImV4cCI6MjA4OTA2Mjk4Nn0.Ati3ikbHYxSZT_iDLKej9zbkSR2iMeQQROA53RexG-w';
+const PID='voicon_player1';
+const sbH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+
+async function sbSave(){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/game_progress?player_id=eq.${PID}`,{headers:sbH});
+    const rows=await r.json();
+    const body=JSON.stringify({player_id:PID,data:D,updated_at:new Date().toISOString()});
+    if(rows.length>0){
+      await fetch(`${SB_URL}/rest/v1/game_progress?player_id=eq.${PID}`,{method:'PATCH',headers:{...sbH,'Prefer':'return=minimal'},body});
+    }else{
+      await fetch(`${SB_URL}/rest/v1/game_progress`,{method:'POST',headers:sbH,body});
+    }
+    console.log('Supabase saved');
+  }catch(e){console.warn('Supabase save fail:',e)}
+}
+
+async function sbLoad(){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/game_progress?player_id=eq.${PID}&limit=1`,{headers:sbH});
+    const rows=await r.json();
+    if(rows.length>0&&rows[0].data){
+      const cloud=rows[0].data;
+      // Merge: keep whichever has more progress
+      if((cloud.stars||0)>(D.stars||0)||(cloud.level||1)>(D.level||1)){
+        D=Object.assign(df(),cloud);
+        sv();upUI();console.log('Loaded from cloud');
+      }else if((D.stars||0)>(cloud.stars||0)){
+        sbSave();// local is ahead, push up
+      }
+    }
+  }catch(e){console.warn('Supabase load fail:',e)}
+}
+
+// Override sv to also sync to cloud (debounced)
+const _svOrig=sv;let _sbTimer=null;
+sv=function(){_svOrig();clearTimeout(_sbTimer);_sbTimer=setTimeout(sbSave,3000)};
+
 // INIT
 document.getElementById('splashArt').innerHTML=`<div style="display:inline-flex;align-items:end;gap:0"><div class="a-float">${ElSvg(110,'excited')}</div><div style="margin-left:-18px;animation:float 3s .3s ease-in-out infinite">${CatSvg(80,'happy')}</div></div>`;
-checkStreak();upUI();
+checkStreak();upUI();sbLoad();
 </script>
 </body>
 </html>
