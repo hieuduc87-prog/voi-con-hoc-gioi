@@ -157,6 +157,48 @@ body::after{content:'';position:fixed;top:-50%;right:-20%;width:60%;height:80%;b
 .bbk:active{transform:scale(.95);background:#F5F5F5}
 .confetti-box{position:fixed;inset:0;pointer-events:none;z-index:9999}
 .conf{position:absolute;animation:confFall var(--dur,3s) var(--del,0s) linear forwards;border-radius:3px}
+/* ===== MAP TABS ===== */
+.map-tabs{display:flex;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:4px 8px;gap:4px;flex-shrink:0;border-bottom:1px solid rgba(0,0,0,.04)}
+.map-tab{flex:1;text-align:center;padding:10px 4px;font-size:13px;font-weight:800;cursor:pointer;opacity:.4;transition:all .25s;border:none;border-radius:14px;background:transparent;color:var(--text);font-family:'Nunito',sans-serif}
+.map-tab.active{opacity:1;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+/* ===== LEVEL CARDS ===== */
+.lv-card{background:#fff;border-radius:20px;padding:14px 16px;margin-bottom:10px;border:2px solid rgba(0,0,0,.05);box-shadow:0 3px 12px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.02);transition:all .3s}
+.lv-card.lv-done{border-color:rgba(107,203,119,.3);background:linear-gradient(135deg,#F1F8E9,#fff)}
+.lv-card.lv-current{border-color:rgba(255,217,61,.4);box-shadow:0 4px 20px rgba(255,217,61,.2),0 0 0 3px rgba(255,217,61,.08);animation:slideUp .5s ease}
+.lv-card.lv-locked{opacity:.35;pointer-events:none}
+.lv-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lv-num{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lilita One',cursive;font-size:17px;color:#fff;background:linear-gradient(135deg,var(--blue),var(--cyan));flex-shrink:0;box-shadow:0 3px 8px rgba(74,144,217,.25)}
+.lv-card.lv-done .lv-num{background:linear-gradient(135deg,var(--green),#81C784);font-size:20px;box-shadow:0 3px 8px rgba(107,203,119,.25)}
+.lv-card.lv-current .lv-num{background:linear-gradient(135deg,var(--yellow),var(--orange));animation:pulse3d 2s ease-in-out infinite;box-shadow:0 3px 10px rgba(255,167,38,.3)}
+.lv-title{font-family:'Lilita One',cursive;font-size:16px;color:var(--text);flex:1}
+.lv-badge{font-size:10px;font-weight:800;color:var(--green);background:rgba(107,203,119,.12);padding:3px 10px;border-radius:10px}
+.lv-subs{display:flex;flex-direction:column;gap:6px}
+.lv-sub{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;border:1.5px solid rgba(0,0,0,.04);background:#FAFBFC;min-height:52px;transition:all .2s}
+.lv-sub.sub-done{border-color:rgba(107,203,119,.25);background:linear-gradient(135deg,#E8F5E9,#F1F8E9)}
+.lv-sub.sub-play{border-color:rgba(255,217,61,.3);background:linear-gradient(135deg,#FFF8E1,#FFFDE7);cursor:pointer}
+.lv-sub.sub-play:active{transform:scale(.97);box-shadow:0 1px 8px rgba(0,0,0,.08)}
+.lv-sub.sub-lock{opacity:.5}
+.lv-sub-icon{font-size:24px;flex-shrink:0}
+.lv-sub-name{font-weight:800;font-size:14px;color:var(--text)}
+.lv-sub-skills{font-size:10px;color:var(--dim);font-weight:600;margin-top:2px}
+.lv-sub-status{font-size:18px;flex-shrink:0}
+/* ===== SECTION CARDS ===== */
+.sk-card.sec-done{border-color:rgba(107,203,119,.3)!important;background:linear-gradient(135deg,#E8F5E9,#C8E6C9)!important;box-shadow:0 3px 12px rgba(107,203,119,.15)!important}
+.sk-card.sec-play{border-color:rgba(255,217,61,.35)!important;background:linear-gradient(135deg,#FFF8E1,#FFFDE7)!important;box-shadow:0 3px 12px rgba(255,217,61,.15)!important}
+.sk-card.sec-play:active{transform:scale(.88)!important;box-shadow:0 1px 6px rgba(0,0,0,.1)!important}
+.sec-status{font-size:10px;font-weight:800;margin-top:4px;padding:2px 6px;border-radius:8px;display:inline-block}
+.sec-done .sec-status{color:#2E7D32;background:rgba(107,203,119,.15)}
+.sec-play .sec-status{color:#F57F17;background:rgba(255,217,61,.2)}
+/* ===== SUBJECT LEVEL HEADER ===== */
+.sub-lv-hdr{text-align:center;padding:10px 14px 2px}
+.sub-lv-title{font-family:'Lilita One',cursive;font-size:22px;background:linear-gradient(135deg,var(--blue),var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none}
+.sub-lv-progress{display:flex;align-items:center;gap:8px;justify-content:center;margin:6px 0}
+.sub-lv-bar{flex:1;max-width:200px;height:8px;background:rgba(0,0,0,.06);border-radius:4px;overflow:hidden}
+.sub-lv-bar .f{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--yellow));transition:width .5s;box-shadow:0 0 8px rgba(107,203,119,.4)}
+.sub-lv-count{font-size:12px;font-weight:800;color:var(--orange)}
+/* ===== BRIGHTER STABS ===== */
+.stab{background:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,.3))!important}
+.stab.active{background:linear-gradient(135deg,#fff,#F8FAFB)!important;box-shadow:0 3px 12px rgba(0,0,0,.08),0 0 0 2px rgba(74,144,217,.08)!important}
 </style>
 </head>
 <body>
@@ -198,15 +240,13 @@ body::after{content:'';position:fixed;top:-50%;right:-20%;width:60%;height:80%;b
     </div>
   </div>
   <div class="stabs" id="stabs">
-    <div class="stab active" style="--tc:#22d3ee" onclick="swSub(0)"><span class="si">🔢</span><span class="sl">Toán</span></div>
-    <div class="stab" style="--tc:#f472b6" onclick="swSub(1)"><span class="si">📖</span><span class="sl">Tiếng Việt</span></div>
-    <div class="stab" style="--tc:#a78bfa" onclick="swSub(2)"><span class="si">🌍</span><span class="sl">English</span></div>
+    <div class="stab active" onclick="swSub(0)"><span class="si">🔢</span><span class="sl">Toán</span></div>
+    <div class="stab" onclick="swSub(1)"><span class="si">📖</span><span class="sl">Tiếng Việt</span></div>
+    <div class="stab" onclick="swSub(2)"><span class="si">🌍</span><span class="sl">English</span></div>
   </div>
-  <div class="mhdr"><h2 id="mTitle">🔢 Toán Lớp 1</h2></div>
+  <div id="subLevelHdr" class="sub-lv-hdr"></div>
   <div class="mascot-row" id="mascotRow"></div>
-  <div class="lvl-grid" id="lvlGrid"></div>
-  <div style="padding:6px 12px"><h3 style="font-family:'Lilita One',cursive;font-size:14px;color:var(--dim);margin-bottom:4px">Kỹ năng</h3></div>
-  <div class="sk-grid" id="skGrid"></div>
+  <div class="sk-grid" id="skGrid" style="padding-bottom:90px"></div>
 </div>
 
 <!-- GAME -->
@@ -402,7 +442,7 @@ function Duo(elSz,catSz,mood,anim){
 
 // ===== DATA =====
 let SK='voicon_lop1_v1';let D=ld();
-function df(){return{level:1,xp:0,stars:0,gems:0,streak:0,lp:null,sp:{},lvDone:{},tc:0,tp:0,combo:0,mc:0,tickets:0,daily:{d:null,m:[]}}}
+function df(){return{level:1,xp:0,stars:0,gems:0,streak:0,lp:null,sp:{},lvDone:{},secDone:{},tc:0,tp:0,combo:0,mc:0,tickets:0,daily:{d:null,m:[]}}}
 function ld(){try{const d=JSON.parse(localStorage.getItem(SK));if(d&&d.level)return d}catch(e){}return df()}
 function sv(){try{localStorage.setItem(SK,JSON.stringify(D))}catch(e){}}
 function resetAll(){if(confirm('Xoá hết?')){D=df();sv();upUI();renderMap()}}
@@ -514,42 +554,78 @@ function upUI(){
   const x1=document.getElementById('X1');if(x1)x1.style.width=p+'%';
 }
 
+// ===== SOUND EFFECTS =====
+let _actx=null;
+function getACtx(){if(!_actx)_actx=new(window.AudioContext||window.webkitAudioContext)();if(_actx.state==='suspended')_actx.resume();return _actx}
+function playSound(type){
+  try{const ctx=getACtx();
+  if(type==='tap'){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880;o.type='sine';g.gain.setValueAtTime(.12,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.08);o.start();o.stop(ctx.currentTime+.08)}
+  else if(type==='correct'){[523,659,784].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.18,ctx.currentTime+i*.08);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.08+.2);o.start(ctx.currentTime+i*.08);o.stop(ctx.currentTime+i*.08+.2)})}
+  else if(type==='wrong'){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sawtooth';o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(150,ctx.currentTime+.25);g.gain.setValueAtTime(.12,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.25);o.start();o.stop(ctx.currentTime+.25)}
+  else if(type==='levelup'){[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.2,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.3);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.3)})}
+  else if(type==='star'){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='triangle';o.frequency.setValueAtTime(600,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(1200,ctx.currentTime+.15);g.gain.setValueAtTime(.15,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.3);o.start();o.stop(ctx.currentTime+.3)}
+  else if(type==='spin'){const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.setValueAtTime(400,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(900,ctx.currentTime+.4);g.gain.setValueAtTime(.12,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.5);o.start();o.stop(ctx.currentTime+.5)}
+  }catch(e){}
+}
+
 // ===== RENDER MAP =====
+function getSubLv(subIdx){
+  const sub=SUBS[subIdx];if(!D.secDone)D.secDone={};
+  for(let lv=1;lv<=10;lv++){if(!sub.skills.every(sk=>D.secDone[`${sk.id}_lv${lv}`]))return lv}
+  return 11;
+}
+function migrateSecDone(){
+  if(!D.secDone)D.secDone={};
+  SUBS.forEach(sub=>{for(let lv=1;lv<=10;lv++){if(D.lvDone[`${sub.id}_lv${lv}`])sub.skills.forEach(sk=>{if(!D.secDone[`${sk.id}_lv${lv}`])D.secDone[`${sk.id}_lv${lv}`]=true})}});
+}
 function renderMap(){
+  if(!D.secDone)D.secDone={};
+  migrateSecDone();
   const sub=SUBS[cSub];
-  const titles=['🔢 Toán Lớp 1','📖 Tiếng Việt Lớp 1','🌍 English Grade 1'];
-  document.getElementById('mTitle').innerHTML=titles[cSub];
-  // Mascots
-  const speeches=[['Cùng đếm số nào! 🐘','Toán dễ lắm! Voi giúp nè! 🎓'],['Học chữ cùng Voi nhé! 📖','Mèo Bông thích đọc sách! 🐱'],['Let\'s learn English! 🌍','Elephant loves ABC! 🐘']];
+  const curLv=getSubLv(cSub);
+  const displayLv=Math.min(curLv,10);
+  const doneCount=curLv>10?sub.skills.length:sub.skills.filter(sk=>D.secDone[`${sk.id}_lv${displayLv}`]).length;
+  const total=sub.skills.length;
+  const pct=Math.round(doneCount/total*100);
+  // Level header
+  const hdr=document.getElementById('subLevelHdr');
+  hdr.innerHTML=curLv>10
+    ?`<div class="sub-lv-title">🏆 ${sub.name} — Hoàn thành!</div><div style="font-size:11px;color:var(--green);font-weight:800">Xuất sắc! Tất cả 10 level!</div>`
+    :`<div class="sub-lv-title">${sub.emoji} ${sub.name} — Level ${curLv}</div>
+      <div class="sub-lv-progress">
+        <div class="sub-lv-bar"><div class="f" style="width:${pct}%"></div></div>
+        <span class="sub-lv-count">${doneCount}/${total}</span>
+      </div>
+      <div style="font-size:10px;color:var(--dim);font-weight:700">${doneCount===total?'Sắp lên level!':'Hoàn thành tất cả phần để lên Level '+(curLv+1)}</div>`;
+  // Mascot
+  const speeches=[['Cùng đếm số nào! 🐘','Toán dễ lắm! 🎓'],['Học chữ nhé! 📖','Đọc giỏi nè! 🐱'],['Let\'s learn! 🌍','ABC easy! 🐘']];
   const sp=speeches[cSub];
   document.getElementById('mascotRow').innerHTML=`<div class="bubble" style="margin-bottom:-2px;font-size:12px">${sp[R(0,sp.length-1)]}</div>
-  <div style="cursor:pointer" onclick="this.style.animation='wiggle .8s ease';setTimeout(()=>this.style.animation='',800)">
-    ${Duo(75,52,'happy')}
-  </div>`;
-  // Level nodes (10 levels)
-  const key=sub.id;
-  const lg=document.getElementById('lvlGrid');
-  let html='';
-  for(let i=1;i<=10;i++){
-    const dk=`${key}_lv${i}`;
-    const done=D.lvDone[dk];
-    const maxDone=Object.keys(D.lvDone).filter(k=>k.startsWith(key+'_lv')).length;
-    const cur=i===maxDone+1;
-    const locked=i>maxDone+1;
-    html+=`<div class="lvl-node ${done?'done':cur?'current':locked?'locked':''}" onclick="startLv(${i})">
-      ${i}<div class="ln">${done?'⭐':'Level'}</div>
+  <div style="cursor:pointer" onclick="this.style.animation='wiggle .8s ease';setTimeout(()=>this.style.animation='',800)">${Duo(65,45,'happy')}</div>`;
+  // Section cards
+  document.getElementById('skGrid').innerHTML=sub.skills.map(sk=>{
+    const done=D.secDone[`${sk.id}_lv${displayLv}`];
+    return`<div class="sk-card ${done?'sec-done':'sec-play'}" onclick="playSound('tap');startSection('${sk.id}',${displayLv})">
+      <div class="se">${sk.emoji}</div><div class="sn">${sk.name}</div>
+      <div class="sec-status">${done?'✅':'▶️'} Lv.${displayLv}</div>
     </div>`;
-  }
-  lg.innerHTML=html;
-  // Skill cards
-  document.getElementById('skGrid').innerHTML=sub.skills.map(sk=>`<div class="sk-card" onclick="startSk('${sk.id}')"><div class="se">${sk.emoji}</div><div class="sn">${sk.name}</div></div>`).join('');
+  }).join('');
   upUI();
+}
+function startSection(skillId,lv){
+  const sub=SUBS[cSub];const sk=sub.skills.find(s=>s.id===skillId);if(!sk)return;
+  cLv=lv;cSkill={id:`${skillId}_lv${lv}`,skillId:skillId,isSection:true,subIdx:cSub};
+  qs=[];for(let i=0;i<QN;i++)qs.push(sk.gen(lv));
+  qi=0;lives=3;correct=0;combo=0;
+  showScreen('game');renderH();
+  document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;
+  document.getElementById('mG').innerHTML=Duo(45,30,'happy');document.getElementById('mG').style.display='block';showQ();
 }
 
 // ===== START =====
 function startLv(lv){const sub=SUBS[cSub];cLv=lv;qs=[];const skills=sub.skills;for(let i=0;i<QN;i++){const sk=skills[R(0,skills.length-1)];qs.push(sk.gen(lv))}qi=0;lives=3;correct=0;combo=0;cSkill={id:`${sub.id}_lv${lv}`,isLv:true};showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=Duo(45,30,'happy');document.getElementById('mG').style.display='block';showQ()}
 function startSk(id){const sub=SUBS[cSub];const sk=sub.skills.find(s=>s.id===id);if(!sk)return;cSkill=sk;cLv=Math.min(D.level,10);qs=[];for(let i=0;i<QN;i++)qs.push(sk.gen(cLv));qi=0;lives=3;correct=0;combo=0;showScreen('game');renderH();document.getElementById('cC').textContent=0;document.getElementById('tQ').textContent=QN;document.getElementById('mG').innerHTML=Duo(45,30,'happy');document.getElementById('mG').style.display='block';showQ()}
-function replay(){if(cSkill&&cSkill.isLv)startLv(cLv);else if(cSkill)startSk(cSkill.id)}
+function replay(){if(cSkill&&cSkill.isSection)startSection(cSkill.skillId,cLv);else if(cSkill&&cSkill.isLv)startLv(cLv);else if(cSkill)startSk(cSkill.id)}
 function renderH(){const h=document.getElementById('hD');h.innerHTML='';for(let i=0;i<3;i++){const s=document.createElement('span');s.className='ht'+(i>=lives?' x':'');s.textContent='❤️';h.appendChild(s)}}
 
 function showQ(){
@@ -571,10 +647,10 @@ function chk(b){
 }
 const CM=[{t:'Giỏi!',s:'🐘 Voi vui lắm!'},{t:'Đúng rồi!',s:'🐱 Mèo khen nè!'},{t:'Tuyệt!',s:'Combo lên! 🔥'},{t:'Wow!',s:'Siêu sao nhí! ⭐'},{t:'Amazing!',s:'Keep going! 💪'}];
 const WM=[{t:'Oops!',s:'Thử lại nha! 💕'},{t:'Hmm...',s:'Voi tin bạn! 🐘'}];
-function hC(){correct++;combo++;if(combo>D.mc)D.mc=combo;D.tc++;document.getElementById('cC').textContent=correct;
+function hC(){correct++;combo++;if(combo>D.mc)D.mc=combo;D.tc++;playSound('correct');document.getElementById('cC').textContent=correct;
   const g=document.getElementById('mG');g.innerHTML=Duo(45,30,combo>=3?'love':'excited');g.classList.add('a-bounce');setTimeout(()=>g.classList.remove('a-bounce'),600);
   showEnc(true);if(combo>=2){const c=document.getElementById('comboD');c.textContent=`${combo}x COMBO 🔥`;c.classList.remove('show');requestAnimationFrame(()=>c.classList.add('show'));setTimeout(()=>c.classList.remove('show'),1500)}}
-function hW(){lives--;combo=0;renderH();const g=document.getElementById('mG');g.innerHTML=Duo(45,30,'sad');g.classList.add('a-sad');setTimeout(()=>g.classList.remove('a-sad'),500);showEnc(false)}
+function hW(){lives--;combo=0;playSound('wrong');renderH();const g=document.getElementById('mG');g.innerHTML=Duo(45,30,'sad');g.classList.add('a-sad');setTimeout(()=>g.classList.remove('a-sad'),500);showEnc(false)}
 function nQ(){qi++;showQ()}
 function showEnc(ok){const ms=ok?CM:WM,m=ms[R(0,ms.length-1)];const o=document.createElement('div');o.className='enc';o.innerHTML=`<div class="et">${m.t}</div><div class="es">${m.s}</div>`;document.body.appendChild(o);setTimeout(()=>o.remove(),1500)}
 function tapM(){const g=document.getElementById('mG');g.innerHTML=Duo(45,30,['excited','love','happy'][R(0,2)]);g.classList.add('a-wiggle');setTimeout(()=>g.classList.remove('a-wiggle'),800);const w=['Gâu!','Paoo!','🐾','💕','🐘','Yay!'][R(0,5)];const e=document.createElement('div');e.className='tap-e';e.textContent=w;e.style.right='10px';e.style.bottom='70px';document.body.appendChild(e);setTimeout(()=>e.remove(),1000)}
@@ -588,6 +664,12 @@ function endR(){
   const oldTicketStars=D.stars-stars;const newTickets=Math.floor(D.stars/3)-Math.floor(oldTicketStars/3);
   D.tickets+=newTickets;
   while(D.xp>=D.level*80){D.xp-=D.level*80;D.level++}
+  if(cSkill&&cSkill.isSection&&acc>=60){
+    if(!D.secDone)D.secDone={};D.secDone[cSkill.id]=true;
+    const csub=SUBS[cSkill.subIdx];
+    if(csub.skills.every(sk=>D.secDone[`${sk.id}_lv${cLv}`])){D.lvDone[`${csub.id}_lv${cLv}`]=true;playSound('levelup')}
+    else playSound('star');
+  }
   if(cSkill&&cSkill.isLv&&acc>=60)D.lvDone[cSkill.id]=true;
   sv();
   // Save game history to Supabase
@@ -605,7 +687,7 @@ function endR(){
   document.getElementById('rC').textContent=correct+'/'+QN;document.getElementById('rA').textContent=acc+'%';
   document.getElementById('rX').textContent='+'+xpE;document.getElementById('rG').textContent='+'+gemE;
   if(newTickets>0)document.getElementById('rSp').innerHTML+=`<div style="color:var(--yellow);font-size:12px;margin-top:4px">🎫 +${newTickets} vé quay!</div>`;
-  if(stars>=2)spawnConf();upUI();
+  if(stars>=2){spawnConf();playSound('star')}upUI();
 }
 
 // ===== SPIN WHEEL =====
@@ -629,7 +711,7 @@ function drawWheel(){
   upUI();
 }
 function spinWheel(){
-  if(spinning||D.tickets<=0)return;spinning=true;D.tickets--;sv();
+  if(spinning||D.tickets<=0)return;spinning=true;D.tickets--;sv();playSound('spin');
   document.getElementById('spinBtn').disabled=true;document.getElementById('spinResult').textContent='';
   const c=document.getElementById('wheelCanvas');
   const prize=R(0,PRIZES.length-1);
