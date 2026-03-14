@@ -7,9 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
-:root{--bg:#0a1628;--blue:#3b82f6;--cyan:#22d3ee;--green:#4ade80;--yellow:#fbbf24;--pink:#f472b6;--purple:#a78bfa;--coral:#fb7185;--peach:#fda4af;--orange:#fb923c;--card:rgba(255,255,255,.06);--text:#fff;--dim:rgba(255,255,255,.5);--elephant:#3b82f6;--elephant2:#60a5fa;--elephant3:#2563eb}
+:root{--bg:#E8F4FD;--blue:#4A90D9;--cyan:#5BC0EB;--green:#6BCB77;--yellow:#FFD93D;--pink:#FF6B9D;--purple:#C084FC;--coral:#FF6B6B;--peach:#FFAB91;--orange:#FFA726;--card:#fff;--text:#2D3436;--dim:#636E72;--shadow:rgba(0,0,0,.08);--elephant:#4A90D9;--elephant2:#74B3E8;--elephant3:#3672B5}
 html,body{height:100%;overflow:hidden;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);touch-action:manipulation}
-body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 80%,rgba(59,130,246,.15),transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(244,114,182,.12),transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(251,191,36,.05),transparent 60%),linear-gradient(160deg,#0a1628,#1e1b4b 50%,#0f172a)}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse at 15% 85%,rgba(91,192,235,.25),transparent 45%),
+  radial-gradient(ellipse at 85% 15%,rgba(255,107,157,.15),transparent 45%),
+  radial-gradient(ellipse at 50% 0%,rgba(255,217,61,.15),transparent 50%),
+  radial-gradient(circle at 50% 100%,rgba(107,203,119,.12),transparent 40%),
+  linear-gradient(170deg,#E8F4FD 0%,#FFF5E6 30%,#FCE4EC 60%,#E8F4FD 100%)}
+body::after{content:'';position:fixed;top:-50%;right:-20%;width:60%;height:80%;background:radial-gradient(circle,rgba(255,255,255,.4),transparent 70%);z-index:0;pointer-events:none}
 .screen{position:fixed;inset:0;z-index:1;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}.screen.active{display:flex}
 /* ===== ANIMATIONS ===== */
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -27,116 +33,130 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradi
 @keyframes starBurst{0%{opacity:0;transform:scale(0) rotate(0)}50%{opacity:1;transform:scale(1.3) rotate(180deg)}100%{opacity:0;transform:scale(.5) rotate(360deg)}}
 @keyframes trunkWave{0%,100%{transform:rotate(0)}25%{transform:rotate(8deg)}75%{transform:rotate(-8deg)}}
 @keyframes tailSwish{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(15deg)}}
+@keyframes cloudFloat{0%{transform:translateX(-10%)}100%{transform:translateX(110%)}}
+@keyframes pulse3d{0%,100%{box-shadow:0 4px 15px var(--shadow),0 8px 30px rgba(74,144,217,.15)}50%{box-shadow:0 6px 20px var(--shadow),0 12px 40px rgba(74,144,217,.25)}}
+@keyframes rainbowBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .a-float{animation:float 3s ease-in-out infinite}
 .a-bounce{animation:bounce .6s ease}
 .a-wiggle{animation:wiggle .8s ease}
 .a-sad{animation:sadBounce .5s ease}
 /* ===== SPEECH BUBBLE ===== */
-.bubble{position:relative;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:10px 16px;font-size:14px;font-weight:700;max-width:240px;text-align:center;animation:popIn .4s ease;margin:0 auto}
-.bubble::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:8px solid transparent;border-top-color:rgba(255,255,255,.1);border-bottom:0}
-/* ===== SPLASH ===== */
-#splash{justify-content:center;align-items:center;text-align:center;padding:24px;gap:6px;background:radial-gradient(ellipse at center,#1e1b4b,#0a1628)}
-.splash-title{font-family:'Lilita One',cursive;font-size:30px;background:linear-gradient(135deg,var(--cyan),var(--blue),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.splash-sub{font-family:'Lilita One',cursive;font-size:18px;color:var(--yellow)}
+.bubble{position:relative;background:#fff;border:2px solid rgba(74,144,217,.15);border-radius:20px;padding:10px 16px;font-size:14px;font-weight:700;max-width:240px;text-align:center;animation:popIn .4s ease;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);color:var(--text)}
+.bubble::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);border:10px solid transparent;border-top-color:#fff;border-bottom:0;filter:drop-shadow(0 2px 2px rgba(0,0,0,.04))}
+/* ===== SPLASH / LOGIN ===== */
+#splash,#login{justify-content:center;align-items:center;text-align:center;padding:24px;gap:6px;background:linear-gradient(170deg,#E8F4FD 0%,#FFF8E7 40%,#FCE4EC 70%,#E8F4FD 100%)}
+.splash-title{font-family:'Lilita One',cursive;font-size:32px;background:linear-gradient(135deg,#FF6B9D,#4A90D9,#5BC0EB,#FFD93D);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:rainbowBg 4s ease infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+.splash-sub{font-family:'Lilita One',cursive;font-size:18px;color:var(--orange);text-shadow:0 1px 2px rgba(0,0,0,.06)}
 .splash-desc{font-size:13px;color:var(--dim);margin:2px 0 16px}
-.btn-go{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:50px;padding:14px 44px;font-size:18px;font-weight:800;color:#fff;cursor:pointer;font-family:'Lilita One',cursive;box-shadow:0 6px 24px rgba(59,130,246,.4);animation:float 2s ease-in-out infinite;position:relative;overflow:hidden}
-.btn-go::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%);animation:shimmer 2.5s infinite}
+.btn-go{background:linear-gradient(135deg,#FF6B9D,#FF8E53,#FFD93D);border:none;border-radius:50px;padding:16px 48px;font-size:18px;font-weight:800;color:#fff;cursor:pointer;font-family:'Lilita One',cursive;box-shadow:0 6px 20px rgba(255,107,157,.35),0 2px 6px rgba(0,0,0,.1),inset 0 -3px 0 rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.3);animation:float 2s ease-in-out infinite;position:relative;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.15);transform:perspective(200px) rotateX(2deg)}
+.btn-go:active{transform:perspective(200px) rotateX(2deg) scale(.95)!important;box-shadow:0 3px 10px rgba(255,107,157,.3),inset 0 2px 4px rgba(0,0,0,.15)}
+.btn-go::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);animation:shimmer 2.5s infinite}
+/* ===== LOGIN INPUTS ===== */
+#login input{width:100%;padding:14px 18px;border-radius:16px;border:2.5px solid #E0E7EE;background:#fff;color:var(--text);font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:8px;outline:none;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04),inset 0 1px 3px rgba(0,0,0,.03);transition:all .2s}
+#login input:focus{border-color:var(--blue);box-shadow:0 2px 8px rgba(74,144,217,.15),0 0 0 3px rgba(74,144,217,.08)}
+#login input::placeholder{color:#B0BEC5}
 /* ===== TOP BAR ===== */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(0,0,0,.2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05);flex-shrink:0;z-index:10}
-.pill{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border-radius:20px;padding:4px 10px;font-weight:700;font-size:12px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.04);flex-shrink:0;z-index:10;box-shadow:0 1px 8px rgba(0,0,0,.03)}
+.pill{display:flex;align-items:center;gap:4px;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(248,250,252,.9));border:1.5px solid rgba(0,0,0,.06);border-radius:20px;padding:4px 10px;font-weight:800;font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.04);color:var(--text)}
 .pill .i{font-size:14px}
 .prow{display:flex;align-items:center;gap:6px}
-.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 10px rgba(59,130,246,.4)}
-.lvb{font-size:10px;font-weight:800;color:var(--yellow);background:rgba(251,191,36,.15);border-radius:6px;padding:1px 6px}
-.xpb{width:50px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:2px}
-.xpb .f{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .5s}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 3px 10px rgba(74,144,217,.3),inset 0 -2px 0 rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.3)}
+.lvb{font-size:10px;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--orange),var(--yellow));border-radius:8px;padding:2px 8px;box-shadow:0 2px 6px rgba(255,167,38,.25),inset 0 -1px 0 rgba(0,0,0,.1)}
+.xpb{width:54px;height:5px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden;margin-top:3px}
+.xpb .f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .5s;box-shadow:0 0 6px rgba(91,192,235,.4)}
 /* ===== SUBJECT TABS ===== */
-.stabs{display:flex;background:rgba(0,0,0,.12);border-bottom:1px solid rgba(255,255,255,.05);flex-shrink:0}
-.stab{flex:1;text-align:center;padding:8px 2px;font-size:12px;font-weight:700;cursor:pointer;opacity:.4;transition:all .2s;border-bottom:3px solid transparent}
-.stab.active{opacity:1;border-bottom-color:var(--tc,var(--blue))}
-.stab .si{font-size:18px;display:block}.stab .sl{font-size:9px;margin-top:1px}
+.stabs{display:flex;background:rgba(255,255,255,.7);border-bottom:1px solid rgba(0,0,0,.04);flex-shrink:0;padding:4px 8px;gap:4px}
+.stab{flex:1;text-align:center;padding:8px 2px;font-size:12px;font-weight:700;cursor:pointer;opacity:.45;transition:all .25s;border:none;border-radius:14px;background:transparent;color:var(--text)}
+.stab.active{opacity:1;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);transform:scale(1.02)}
+.stab .si{font-size:20px;display:block}.stab .sl{font-size:9px;margin-top:1px;font-weight:800}
 /* ===== LEVEL MAP ===== */
 #map{padding-bottom:85px}
-.mhdr{text-align:center;padding:10px 14px 2px;flex-shrink:0}
-.mhdr h2{font-family:'Lilita One',cursive;font-size:18px;color:var(--cyan)}
+.mhdr{text-align:center;padding:12px 14px 2px;flex-shrink:0}
+.mhdr h2{font-family:'Lilita One',cursive;font-size:20px;color:var(--blue);text-shadow:0 1px 2px rgba(0,0,0,.05)}
 .mascot-row{text-align:center;padding:4px 0}
 .lvl-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:8px 14px}
-.lvl-node{width:62px;height:62px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:all .2s;font-family:'Lilita One',cursive;font-size:14px;font-weight:800;border:3px solid rgba(255,255,255,.12)}
-.lvl-node:active{transform:scale(.9)}
-.lvl-node.done{border-color:var(--green);background:rgba(74,222,128,.15)}
-.lvl-node.done::after{content:'⭐';position:absolute;top:-6px;right:-6px;font-size:14px}
-.lvl-node.current{border-color:var(--yellow);background:rgba(251,191,36,.15);box-shadow:0 0 16px rgba(251,191,36,.3);animation:float 2s ease-in-out infinite}
-.lvl-node.locked{opacity:.3;pointer-events:none}
-.lvl-node .ln{font-size:10px;color:var(--dim);margin-top:1px}
+.lvl-node{width:64px;height:64px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:all .25s;font-family:'Lilita One',cursive;font-size:15px;font-weight:800;border:3px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04),inset 0 -2px 0 rgba(0,0,0,.04);color:var(--text)}
+.lvl-node:active{transform:scale(.88)}
+.lvl-node.done{border-color:var(--green);background:linear-gradient(135deg,#E8F5E9,#C8E6C9);box-shadow:0 3px 12px rgba(107,203,119,.2),0 1px 3px rgba(0,0,0,.04);color:#2E7D32}
+.lvl-node.done::after{content:'⭐';position:absolute;top:-8px;right:-8px;font-size:16px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.15))}
+.lvl-node.current{border-color:var(--yellow);background:linear-gradient(135deg,#FFF8E1,#FFECB3);box-shadow:0 3px 16px rgba(255,217,61,.35),0 0 0 3px rgba(255,217,61,.15);animation:pulse3d 2s ease-in-out infinite;color:#F57F17}
+.lvl-node.locked{opacity:.3;pointer-events:none;box-shadow:none}
+.lvl-node .ln{font-size:9px;color:var(--dim);margin-top:1px;font-weight:700}
 /* ===== SKILL GRID ===== */
 .sk-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:6px 12px}
-.sk-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s}
-.sk-card:active{transform:scale(.93)}
-.sk-card .se{font-size:28px}.sk-card .sn{font-size:10px;font-weight:700;margin-top:2px}
+.sk-card{background:#fff;border:1.5px solid rgba(0,0,0,.05);border-radius:16px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .25s;box-shadow:0 2px 8px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03),inset 0 -2px 0 rgba(0,0,0,.03)}
+.sk-card:active{transform:scale(.92);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.sk-card .se{font-size:30px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}.sk-card .sn{font-size:10px;font-weight:800;margin-top:3px;color:var(--dim)}
 /* ===== GAME ===== */
-#game{align-items:center}
+#game{align-items:center;background:linear-gradient(170deg,#E8F4FD,#FFF8E7,#FCE4EC)}
 .garea{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;width:100%;max-width:520px}
-.qcard{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.08);border-radius:20px;padding:18px 16px;text-align:center;width:100%;animation:slideUp .4s ease}
-.qt{font-family:'Lilita One',cursive;font-size:26px;margin-bottom:4px;color:#fff;text-shadow:0 2px 12px rgba(59,130,246,.3)}
+.qcard{background:#fff;border:2px solid rgba(0,0,0,.04);border-radius:24px;padding:20px 18px;text-align:center;width:100%;animation:slideUp .4s ease;box-shadow:0 8px 30px rgba(0,0,0,.06),0 2px 6px rgba(0,0,0,.03),inset 0 -2px 0 rgba(0,0,0,.02)}
+.qt{font-family:'Lilita One',cursive;font-size:26px;margin-bottom:4px;color:var(--text);text-shadow:none}
 .qh{font-size:11px;color:var(--dim);margin-bottom:14px}
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
 .agrid.sc{grid-template-columns:1fr}
-.abtn{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 8px;font-size:17px;font-weight:700;color:#fff;font-family:'Nunito',sans-serif;cursor:pointer;transition:all .2s;text-align:center;word-break:break-word;line-height:1.3}
-.abtn:active{transform:scale(.93)}
-.abtn.ok{background:rgba(74,222,128,.2)!important;border-color:var(--green)!important;animation:bounce .5s ease}
-.abtn.no{background:rgba(251,113,133,.2)!important;border-color:var(--coral)!important}
-.tbar{width:100%;height:5px;background:rgba(255,255,255,.07);border-radius:3px;margin-bottom:8px;overflow:hidden}
-.tbar .f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--yellow),var(--coral));transition:width .1s linear}
-.enc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;pointer-events:none;animation:encFade 1.5s ease forwards}
-.enc .et{font-family:'Lilita One',cursive;font-size:36px;background:linear-gradient(135deg,var(--yellow),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:encBounce .5s ease}
-.enc .es{font-size:14px;color:var(--cyan);animation:encBounce .5s .1s ease both}
-.combo-d{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:100;font-family:'Lilita One',cursive;font-size:16px;color:var(--yellow);opacity:0;transition:all .3s;pointer-events:none}
+.abtn{background:linear-gradient(180deg,#fff,#F8FAFB);border:2.5px solid #E0E7EE;border-radius:16px;padding:14px 10px;font-size:17px;font-weight:800;color:var(--text);font-family:'Nunito',sans-serif;cursor:pointer;transition:all .2s;text-align:center;word-break:break-word;line-height:1.3;box-shadow:0 3px 8px rgba(0,0,0,.04),inset 0 -2px 0 rgba(0,0,0,.04);min-height:52px}
+.abtn:active{transform:scale(.93);box-shadow:0 1px 3px rgba(0,0,0,.06);background:#F0F4F8}
+.abtn.ok{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)!important;border-color:var(--green)!important;animation:bounce .5s ease;box-shadow:0 4px 16px rgba(107,203,119,.25)!important;color:#2E7D32!important}
+.abtn.no{background:linear-gradient(135deg,#FFEBEE,#FFCDD2)!important;border-color:var(--coral)!important;box-shadow:0 4px 16px rgba(255,107,107,.15)!important;color:#C62828!important}
+.tbar{width:100%;height:6px;background:rgba(0,0,0,.05);border-radius:3px;margin-bottom:10px;overflow:hidden}
+.tbar .f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--yellow),var(--coral));transition:width .1s linear;box-shadow:0 0 8px rgba(107,203,119,.3)}
+.enc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:200;pointer-events:none;animation:encFade 1.5s ease forwards;background:rgba(255,255,255,.3)}
+.enc .et{font-family:'Lilita One',cursive;font-size:40px;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:encBounce .5s ease;filter:drop-shadow(0 2px 6px rgba(0,0,0,.1))}
+.enc .es{font-size:15px;color:var(--blue);font-weight:800;animation:encBounce .5s .1s ease both}
+.combo-d{position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:100;font-family:'Lilita One',cursive;font-size:18px;color:var(--orange);opacity:0;transition:all .3s;pointer-events:none;background:#fff;padding:4px 14px;border-radius:20px;box-shadow:0 4px 16px rgba(255,167,38,.2)}
 .combo-d.show{opacity:1}
-.mascot-g{position:fixed;bottom:12px;right:10px;z-index:50;cursor:pointer;display:none}
+.mascot-g{position:fixed;bottom:14px;right:12px;z-index:50;cursor:pointer;display:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.12))}
 .mascot-g:active{transform:scale(1.15)}
-.hearts{display:flex;gap:2px}.ht{font-size:16px;transition:all .3s}.ht.x{opacity:.2;transform:scale(.8)}
-.tap-e{position:fixed;pointer-events:none;z-index:300;font-size:16px;animation:tapFloat 1s ease forwards}
+.hearts{display:flex;gap:3px}.ht{font-size:18px;transition:all .3s;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}.ht.x{opacity:.2;transform:scale(.7)}
+.tap-e{position:fixed;pointer-events:none;z-index:300;font-size:18px;animation:tapFloat 1s ease forwards;font-weight:900}
 /* ===== RESULT ===== */
-#result{justify-content:center;align-items:center;text-align:center;padding:20px}
-.rtitle{font-family:'Lilita One',cursive;font-size:26px;background:linear-gradient(135deg,var(--cyan),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.rstars{font-size:36px;margin:6px 0}
-.rstats{display:flex;gap:10px;margin:10px 0;justify-content:center;flex-wrap:wrap}
-.rs{background:rgba(255,255,255,.06);border-radius:12px;padding:8px 14px;text-align:center}
-.rs .n{font-size:22px;font-weight:800;color:var(--yellow)}.rs .l{font-size:9px;color:var(--dim)}
-.bgrp{display:flex;gap:8px;justify-content:center;margin-top:8px}
-.b1{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 18px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif}
-.b2{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:12px;padding:10px 18px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif}
+#result{justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(170deg,#E8F4FD,#FFF8E7,#FCE4EC)}
+.rtitle{font-family:'Lilita One',cursive;font-size:28px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--blue));background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:rainbowBg 3s ease infinite}
+.rstars{font-size:40px;margin:8px 0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+.rstats{display:flex;gap:8px;margin:12px 0;justify-content:center;flex-wrap:wrap}
+.rs{background:#fff;border-radius:16px;padding:10px 16px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.03),inset 0 -2px 0 rgba(0,0,0,.03)}
+.rs .n{font-size:24px;font-weight:900;color:var(--orange)}.rs .l{font-size:9px;color:var(--dim);font-weight:700}
+.bgrp{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.b1{background:#fff;border:2px solid rgba(0,0,0,.06);border-radius:16px;padding:12px 22px;font-size:14px;font-weight:800;color:var(--text);cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.04),inset 0 -2px 0 rgba(0,0,0,.04)}
+.b1:active{transform:scale(.95)}
+.b2{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:16px;padding:12px 22px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 4px 16px rgba(74,144,217,.3),inset 0 -2px 0 rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.2)}
+.b2:active{transform:scale(.95)}
 /* ===== SPIN WHEEL ===== */
-#spinScreen{justify-content:center;align-items:center;text-align:center;padding:20px}
+#spinScreen{justify-content:center;align-items:center;text-align:center;padding:20px;background:linear-gradient(170deg,#FFF8E7,#FCE4EC,#E8F4FD)}
 .wheel-wrap{position:relative;width:260px;height:260px;margin:0 auto 16px}
-.wheel-canvas{width:260px;height:260px;border-radius:50%;border:4px solid var(--yellow);box-shadow:0 0 30px rgba(251,191,36,.3)}
-.wheel-pointer{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:28px;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
-.spin-btn{background:linear-gradient(135deg,var(--yellow),var(--orange));border:none;border-radius:40px;padding:12px 36px;font-size:16px;font-weight:800;color:#1e1b4b;cursor:pointer;font-family:'Lilita One',cursive;box-shadow:0 4px 16px rgba(251,191,36,.4);margin-top:8px}
-.spin-btn:disabled{opacity:.4}
-.spin-result{font-family:'Lilita One',cursive;font-size:22px;color:var(--yellow);margin:10px 0}
+.wheel-canvas{width:260px;height:260px;border-radius:50%;border:5px solid var(--yellow);box-shadow:0 6px 30px rgba(255,217,61,.3),0 0 0 4px rgba(255,217,61,.1),inset 0 0 20px rgba(0,0,0,.05)}
+.wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:32px;z-index:2;filter:drop-shadow(0 3px 8px rgba(0,0,0,.2))}
+.spin-btn{background:linear-gradient(135deg,var(--yellow),var(--orange));border:none;border-radius:40px;padding:14px 42px;font-size:17px;font-weight:800;color:#fff;cursor:pointer;font-family:'Lilita One',cursive;box-shadow:0 5px 20px rgba(255,167,38,.35),inset 0 -3px 0 rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.3);margin-top:10px;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.spin-btn:disabled{opacity:.35;box-shadow:none}
+.spin-btn:active{transform:scale(.95)}
+.spin-result{font-family:'Lilita One',cursive;font-size:24px;color:var(--orange);margin:12px 0;text-shadow:0 1px 2px rgba(0,0,0,.06)}
 /* ===== NAV ===== */
-.bnav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:rgba(0,0,0,.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.05);padding:4px 0 max(4px,env(safe-area-inset-bottom));z-index:100}
-.ni{display:flex;flex-direction:column;align-items:center;padding:4px 10px;cursor:pointer;opacity:.4;transition:all .2s}
-.ni.act{opacity:1}.ni .ic{font-size:18px}.ni .lb{font-size:8px;font-weight:700;margin-top:1px}
+.bnav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(0,0,0,.04);padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,.03)}
+.ni{display:flex;flex-direction:column;align-items:center;padding:4px 12px;cursor:pointer;opacity:.35;transition:all .25s;border-radius:12px}
+.ni.act{opacity:1;background:rgba(74,144,217,.08)}.ni .ic{font-size:20px}.ni .lb{font-size:8px;font-weight:800;margin-top:1px;color:var(--dim)}
+.ni.act .lb{color:var(--blue)}
 /* PROFILE/DAILY */
-#daily,#profile{padding:0 12px 90px}
-.dhero{text-align:center;padding:14px 0;flex-shrink:0}
-.dhero h2{font-family:'Lilita One',cursive;font-size:18px;color:var(--orange)}
-.mcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.mcard .me{font-size:24px}.mcard .mi{flex:1}.mcard .mt{font-weight:700;font-size:12px}.mcard .md{font-size:9px;color:var(--dim)}
-.mcard .mr{background:rgba(251,191,36,.15);border-radius:6px;padding:2px 6px;font-size:9px;font-weight:700;color:var(--yellow)}
-.mp{width:100%;height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:3px;overflow:hidden}.mp .f{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--yellow))}
-.mcard.dn{border-color:var(--green)}.mcard.dn .mt::after{content:' ✅'}
-.phero{text-align:center;padding:16px 0 10px;flex-shrink:0}
-.pname{font-family:'Lilita One',cursive;font-size:20px;color:var(--cyan)}
-.plv{color:var(--yellow);font-weight:700;font-size:11px}
-.xpfull{width:100%;max-width:220px;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:5px auto 0}
-.xpfull .f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .5s}
-.skcard{background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(251,191,36,.08));border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:14px;text-align:center;margin-top:10px}
-.skn{font-size:36px;font-weight:900;color:var(--orange)}.skl{font-size:11px;color:var(--dim)}
-.bbk{background:rgba(255,255,255,.08);border:none;border-radius:8px;padding:5px 10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer}
+#daily,#profile{padding:0 12px 90px;background:linear-gradient(170deg,#E8F4FD,#FFF8E7)}
+.dhero{text-align:center;padding:16px 0;flex-shrink:0}
+.dhero h2{font-family:'Lilita One',cursive;font-size:20px;color:var(--orange);text-shadow:0 1px 2px rgba(0,0,0,.05)}
+.mcard{background:#fff;border:1.5px solid rgba(0,0,0,.04);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.02),inset 0 -1px 0 rgba(0,0,0,.03);transition:all .2s}
+.mcard:active{transform:scale(.98)}
+.mcard .me{font-size:26px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1))}.mcard .mi{flex:1}.mcard .mt{font-weight:800;font-size:13px;color:var(--text)}.mcard .md{font-size:10px;color:var(--dim);font-weight:600}
+.mcard .mr{background:linear-gradient(135deg,rgba(255,217,61,.2),rgba(255,167,38,.15));border:1px solid rgba(255,167,38,.15);border-radius:8px;padding:3px 8px;font-size:10px;font-weight:800;color:var(--orange)}
+.mp{width:100%;height:4px;background:rgba(0,0,0,.05);border-radius:2px;margin-top:4px;overflow:hidden}.mp .f{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--yellow));box-shadow:0 0 6px rgba(107,203,119,.3)}
+.mcard.dn{border-color:var(--green);background:linear-gradient(135deg,#F1F8E9,#fff)}.mcard.dn .mt::after{content:' ✅'}
+.phero{text-align:center;padding:18px 0 10px;flex-shrink:0}
+.pname{font-family:'Lilita One',cursive;font-size:22px;color:var(--blue);text-shadow:0 1px 2px rgba(0,0,0,.05)}
+.plv{color:var(--orange);font-weight:800;font-size:12px}
+.xpfull{width:100%;max-width:220px;height:8px;background:rgba(0,0,0,.05);border-radius:4px;overflow:hidden;margin:6px auto 0}
+.xpfull .f{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .5s;box-shadow:0 0 8px rgba(91,192,235,.4)}
+.skcard{background:#fff;border:2px solid rgba(74,144,217,.1);border-radius:20px;padding:18px;text-align:center;margin-top:12px;box-shadow:0 4px 16px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.02)}
+.skn{font-size:40px;font-weight:900;color:var(--orange);text-shadow:0 2px 4px rgba(0,0,0,.06)}.skl{font-size:12px;color:var(--dim);font-weight:700}
+.bbk{background:#fff;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;padding:6px 12px;color:var(--text);font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:all .2s}
+.bbk:active{transform:scale(.95);background:#F5F5F5}
 .confetti-box{position:fixed;inset:0;pointer-events:none;z-index:9999}
-.conf{position:absolute;animation:confFall var(--dur,3s) var(--del,0s) linear forwards}
+.conf{position:absolute;animation:confFall var(--dur,3s) var(--del,0s) linear forwards;border-radius:3px}
 </style>
 </head>
 <body>
@@ -149,9 +169,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradi
     <div class="splash-title">Voi Con & Mèo Bông</div>
     <div class="splash-sub" style="margin-bottom:16px">Đăng Nhập</div>
     <div style="width:100%;max-width:280px">
-      <input id="loginUser" type="text" placeholder="Tên đăng nhập" style="width:100%;padding:12px 16px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:8px;outline:none;text-align:center" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'">
-      <input id="loginPass" type="password" placeholder="Mật khẩu" style="width:100%;padding:12px 16px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:4px;outline:none;text-align:center" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'" onkeydown="if(event.key==='Enter')doLogin()">
-      <div id="loginErr" style="color:var(--coral);font-size:12px;font-weight:700;min-height:20px;margin-bottom:8px"></div>
+      <input id="loginUser" type="text" placeholder="Tên đăng nhập">
+      <input id="loginPass" type="password" placeholder="Mật khẩu" onkeydown="if(event.key==='Enter')doLogin()">
+      <div id="loginErr" style="color:var(--coral);font-size:12px;font-weight:800;min-height:20px;margin-bottom:8px"></div>
       <button class="btn-go" onclick="doLogin()" style="width:100%">🐘 Đăng Nhập</button>
     </div>
   </div>
@@ -252,79 +272,125 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradi
 // ===== SVG MASCOTS =====
 function ElSvg(sz=80,mood='happy'){
   const w=sz;
-  const eyeMap={happy:`<circle cx="${w*.4}" cy="${w*.38}" r="${w*.03}" fill="#1e1b4b"/><circle cx="${w*.6}" cy="${w*.38}" r="${w*.03}" fill="#1e1b4b"/><circle cx="${w*.41}" cy="${w*.37}" r="${w*.01}" fill="#fff"/><circle cx="${w*.61}" cy="${w*.37}" r="${w*.01}" fill="#fff"/>`,excited:`<ellipse cx="${w*.4}" cy="${w*.38}" rx="${w*.035}" ry="${w*.04}" fill="#1e1b4b"/><ellipse cx="${w*.6}" cy="${w*.38}" rx="${w*.035}" ry="${w*.04}" fill="#1e1b4b"/><circle cx="${w*.41}" cy="${w*.37}" r="${w*.015}" fill="#fff"/><circle cx="${w*.61}" cy="${w*.37}" r="${w*.015}" fill="#fff"/>`,sad:`<path d="M${w*.37} ${w*.4}Q${w*.4} ${w*.36} ${w*.43} ${w*.4}" stroke="#1e1b4b" stroke-width="${w*.015}" fill="none" stroke-linecap="round"/><path d="M${w*.57} ${w*.4}Q${w*.6} ${w*.36} ${w*.63} ${w*.4}" stroke="#1e1b4b" stroke-width="${w*.015}" fill="none" stroke-linecap="round"/>`,love:`<text x="${w*.4}" y="${w*.41}" font-size="${w*.07}" text-anchor="middle" fill="#f472b6">♥</text><text x="${w*.6}" y="${w*.41}" font-size="${w*.07}" text-anchor="middle" fill="#f472b6">♥</text>`};
-  const mouthMap={happy:`<path d="M${w*.44} ${w*.47}Q${w*.5} ${w*.52} ${w*.56} ${w*.47}" stroke="#1e1b4b" stroke-width="${w*.012}" fill="none" stroke-linecap="round"/>`,excited:`<ellipse cx="${w*.5}" cy="${w*.49}" rx="${w*.04}" ry="${w*.03}" fill="#1e1b4b"/>`,sad:`<path d="M${w*.45} ${w*.5}Q${w*.5} ${w*.46} ${w*.55} ${w*.5}" stroke="#1e1b4b" stroke-width="${w*.012}" fill="none" stroke-linecap="round"/>`,love:`<path d="M${w*.44} ${w*.47}Q${w*.5} ${w*.53} ${w*.56} ${w*.47}" stroke="#1e1b4b" stroke-width="${w*.012}" fill="#fda4af" stroke-linecap="round"/>`};
+  const eyeMap={
+    happy:`<ellipse cx="${w*.39}" cy="${w*.38}" rx="${w*.035}" ry="${w*.04}" fill="#1a1a2e"/><ellipse cx="${w*.61}" cy="${w*.38}" rx="${w*.035}" ry="${w*.04}" fill="#1a1a2e"/><ellipse cx="${w*.395}" cy="${w*.37}" rx="${w*.015}" ry="${w*.018}" fill="#fff"/><ellipse cx="${w*.615}" cy="${w*.37}" rx="${w*.015}" ry="${w*.018}" fill="#fff"/>`,
+    excited:`<ellipse cx="${w*.39}" cy="${w*.38}" rx="${w*.04}" ry="${w*.045}" fill="#1a1a2e"/><ellipse cx="${w*.61}" cy="${w*.38}" rx="${w*.04}" ry="${w*.045}" fill="#1a1a2e"/><ellipse cx="${w*.395}" cy="${w*.37}" rx="${w*.018}" ry="${w*.02}" fill="#fff"/><ellipse cx="${w*.615}" cy="${w*.37}" rx="${w*.018}" ry="${w*.02}" fill="#fff"/><circle cx="${w*.4}" cy="${w*.365}" r="${w*.006}" fill="#fff" opacity=".6"/>`,
+    sad:`<path d="M${w*.36} ${w*.4}Q${w*.39} ${w*.355} ${w*.42} ${w*.4}" stroke="#1a1a2e" stroke-width="${w*.018}" fill="none" stroke-linecap="round"/><path d="M${w*.58} ${w*.4}Q${w*.61} ${w*.355} ${w*.64} ${w*.4}" stroke="#1a1a2e" stroke-width="${w*.018}" fill="none" stroke-linecap="round"/>`,
+    love:`<text x="${w*.39}" y="${w*.41}" font-size="${w*.08}" text-anchor="middle" fill="#FF6B9D">♥</text><text x="${w*.61}" y="${w*.41}" font-size="${w*.08}" text-anchor="middle" fill="#FF6B9D">♥</text>`
+  };
+  const mouthMap={
+    happy:`<path d="M${w*.43} ${w*.47}Q${w*.5} ${w*.525} ${w*.57} ${w*.47}" stroke="#1a1a2e" stroke-width="${w*.014}" fill="none" stroke-linecap="round"/>`,
+    excited:`<ellipse cx="${w*.5}" cy="${w*.49}" rx="${w*.045}" ry="${w*.035}" fill="#1a1a2e"/><ellipse cx="${w*.5}" cy="${w*.485}" rx="${w*.03}" ry="${w*.015}" fill="#FF6B9D" opacity=".4"/>`,
+    sad:`<path d="M${w*.44} ${w*.5}Q${w*.5} ${w*.465} ${w*.56} ${w*.5}" stroke="#1a1a2e" stroke-width="${w*.014}" fill="none" stroke-linecap="round"/>`,
+    love:`<path d="M${w*.43} ${w*.47}Q${w*.5} ${w*.535} ${w*.57} ${w*.47}" stroke="#1a1a2e" stroke-width="${w*.014}" fill="#FFAB91" stroke-linecap="round"/>`
+  };
   const m=mood in eyeMap?mood:'happy';
-  const blush=(m==='happy'||m==='excited'||m==='love')?`<ellipse cx="${w*.34}" cy="${w*.45}" rx="${w*.03}" ry="${w*.015}" fill="#93c5fd" opacity=".5"/><ellipse cx="${w*.66}" cy="${w*.45}" rx="${w*.03}" ry="${w*.015}" fill="#93c5fd" opacity=".5"/>`:'';
+  const blush=(m==='happy'||m==='excited'||m==='love')?`<ellipse cx="${w*.33}" cy="${w*.45}" rx="${w*.035}" ry="${w*.018}" fill="#FF8A80" opacity=".35"/><ellipse cx="${w*.67}" cy="${w*.45}" rx="${w*.035}" ry="${w*.018}" fill="#FF8A80" opacity=".35"/>`:'';
   return`<svg viewBox="0 0 ${w} ${w}" width="${w}" height="${w}" xmlns="http://www.w3.org/2000/svg">
-  <!-- 3D shadow -->
-  <ellipse cx="${w*.5}" cy="${w*.92}" rx="${w*.3}" ry="${w*.04}" fill="rgba(0,0,0,.15)"/>
-  <!-- Ears -->
-  <ellipse cx="${w*.22}" cy="${w*.38}" rx="${w*.14}" ry="${w*.18}" fill="#2563eb"/>
-  <ellipse cx="${w*.22}" cy="${w*.38}" rx="${w*.1}" ry="${w*.13}" fill="#60a5fa"/>
-  <ellipse cx="${w*.78}" cy="${w*.38}" rx="${w*.14}" ry="${w*.18}" fill="#2563eb"/>
-  <ellipse cx="${w*.78}" cy="${w*.38}" rx="${w*.1}" ry="${w*.13}" fill="#60a5fa"/>
-  <!-- Body -->
-  <ellipse cx="${w*.5}" cy="${w*.68}" rx="${w*.28}" ry="${w*.22}" fill="#3b82f6"/>
-  <ellipse cx="${w*.5}" cy="${w*.7}" rx="${w*.22}" ry="${w*.16}" fill="#60a5fa"/>
-  <!-- Legs -->
-  <rect x="${w*.32}" y="${w*.8}" width="${w*.1}" height="${w*.12}" rx="${w*.05}" fill="#2563eb"/>
-  <rect x="${w*.58}" y="${w*.8}" width="${w*.1}" height="${w*.12}" rx="${w*.05}" fill="#2563eb"/>
-  <!-- Head -->
-  <ellipse cx="${w*.5}" cy="${w*.4}" rx="${w*.22}" ry="${w*.2}" fill="#3b82f6"/>
-  <!-- 3D highlight -->
-  <ellipse cx="${w*.45}" cy="${w*.34}" rx="${w*.12}" ry="${w*.08}" fill="#60a5fa" opacity=".5"/>
-  <!-- Trunk -->
-  <path d="M${w*.5} ${w*.48}Q${w*.48} ${w*.56} ${w*.44} ${w*.6}Q${w*.42} ${w*.62} ${w*.44} ${w*.63}" stroke="#3b82f6" stroke-width="${w*.06}" fill="none" stroke-linecap="round">
-    <animateTransform attributeName="transform" type="rotate" values="0 ${w*.5} ${w*.48};4 ${w*.5} ${w*.48};-4 ${w*.5} ${w*.48};0 ${w*.5} ${w*.48}" dur="2s" repeatCount="indefinite"/>
+  <defs>
+    <radialGradient id="elBody${w}" cx="45%" cy="35%" r="55%"><stop offset="0%" stop-color="#74B3E8"/><stop offset="60%" stop-color="#4A90D9"/><stop offset="100%" stop-color="#3672B5"/></radialGradient>
+    <radialGradient id="elHead${w}" cx="42%" cy="30%" r="60%"><stop offset="0%" stop-color="#8EC8F0"/><stop offset="50%" stop-color="#5BA3E0"/><stop offset="100%" stop-color="#4A90D9"/></radialGradient>
+    <radialGradient id="elEar${w}" cx="40%" cy="35%" r="55%"><stop offset="0%" stop-color="#5BA3E0"/><stop offset="100%" stop-color="#3672B5"/></radialGradient>
+    <filter id="elShadow${w}"><feDropShadow dx="0" dy="${w*.02}" stdDeviation="${w*.015}" flood-color="#000" flood-opacity=".12"/></filter>
+  </defs>
+  <!-- Ground shadow -->
+  <ellipse cx="${w*.5}" cy="${w*.93}" rx="${w*.28}" ry="${w*.035}" fill="rgba(0,0,0,.08)"/>
+  <!-- Ears (3D with inner glow) -->
+  <ellipse cx="${w*.22}" cy="${w*.37}" rx="${w*.14}" ry="${w*.18}" fill="url(#elEar${w})"/>
+  <ellipse cx="${w*.22}" cy="${w*.37}" rx="${w*.1}" ry="${w*.13}" fill="#8EC8F0" opacity=".5"/>
+  <ellipse cx="${w*.22}" cy="${w*.38}" rx="${w*.07}" ry="${w*.09}" fill="#FFAB91" opacity=".3"/>
+  <ellipse cx="${w*.78}" cy="${w*.37}" rx="${w*.14}" ry="${w*.18}" fill="url(#elEar${w})"/>
+  <ellipse cx="${w*.78}" cy="${w*.37}" rx="${w*.1}" ry="${w*.13}" fill="#8EC8F0" opacity=".5"/>
+  <ellipse cx="${w*.78}" cy="${w*.38}" rx="${w*.07}" ry="${w*.09}" fill="#FFAB91" opacity=".3"/>
+  <!-- Body (3D sphere) -->
+  <ellipse cx="${w*.5}" cy="${w*.68}" rx="${w*.28}" ry="${w*.22}" fill="url(#elBody${w})" filter="url(#elShadow${w})"/>
+  <ellipse cx="${w*.46}" cy="${w*.64}" rx="${w*.15}" ry="${w*.1}" fill="#8EC8F0" opacity=".3"/>
+  <!-- Belly highlight -->
+  <ellipse cx="${w*.5}" cy="${w*.72}" rx="${w*.16}" ry="${w*.12}" fill="#B8D8F0" opacity=".35"/>
+  <!-- Legs (3D cylinders) -->
+  <rect x="${w*.32}" y="${w*.8}" width="${w*.1}" height="${w*.12}" rx="${w*.05}" fill="#3672B5"/>
+  <rect x="${w*.325}" y="${w*.8}" width="${w*.045}" height="${w*.1}" rx="${w*.02}" fill="#5BA3E0" opacity=".4"/>
+  <ellipse cx="${w*.37}" cy="${w*.92}" rx="${w*.055}" ry="${w*.02}" fill="#2E5FA3"/>
+  <rect x="${w*.58}" y="${w*.8}" width="${w*.1}" height="${w*.12}" rx="${w*.05}" fill="#3672B5"/>
+  <rect x="${w*.585}" y="${w*.8}" width="${w*.045}" height="${w*.1}" rx="${w*.02}" fill="#5BA3E0" opacity=".4"/>
+  <ellipse cx="${w*.63}" cy="${w*.92}" rx="${w*.055}" ry="${w*.02}" fill="#2E5FA3"/>
+  <!-- Head (3D sphere) -->
+  <ellipse cx="${w*.5}" cy="${w*.4}" rx="${w*.23}" ry="${w*.21}" fill="url(#elHead${w})" filter="url(#elShadow${w})"/>
+  <!-- Specular highlights -->
+  <ellipse cx="${w*.44}" cy="${w*.32}" rx="${w*.1}" ry="${w*.06}" fill="#B8D8F0" opacity=".5"/>
+  <ellipse cx="${w*.42}" cy="${w*.3}" rx="${w*.04}" ry="${w*.025}" fill="#fff" opacity=".35"/>
+  <!-- Trunk (3D with gradient) -->
+  <path d="M${w*.5} ${w*.48}Q${w*.48} ${w*.56} ${w*.44} ${w*.6}Q${w*.42} ${w*.63} ${w*.44} ${w*.645}" stroke="#4A90D9" stroke-width="${w*.065}" fill="none" stroke-linecap="round">
+    <animateTransform attributeName="transform" type="rotate" values="0 ${w*.5} ${w*.48};5 ${w*.5} ${w*.48};-5 ${w*.5} ${w*.48};0 ${w*.5} ${w*.48}" dur="2.5s" repeatCount="indefinite"/>
   </path>
-  <circle cx="${w*.44}" cy="${w*.63}" r="${w*.018}" fill="#60a5fa"/>
-  <!-- Tusks -->
-  <path d="M${w*.42} ${w*.52}Q${w*.38} ${w*.58} ${w*.4} ${w*.56}" stroke="#fff" stroke-width="${w*.015}" fill="none" stroke-linecap="round"/>
-  <path d="M${w*.58} ${w*.52}Q${w*.62} ${w*.58} ${w*.6} ${w*.56}" stroke="#fff" stroke-width="${w*.015}" fill="none" stroke-linecap="round"/>
+  <path d="M${w*.5} ${w*.48}Q${w*.48} ${w*.56} ${w*.44} ${w*.6}Q${w*.42} ${w*.63} ${w*.44} ${w*.645}" stroke="#74B3E8" stroke-width="${w*.03}" fill="none" stroke-linecap="round" opacity=".5">
+    <animateTransform attributeName="transform" type="rotate" values="0 ${w*.5} ${w*.48};5 ${w*.5} ${w*.48};-5 ${w*.5} ${w*.48};0 ${w*.5} ${w*.48}" dur="2.5s" repeatCount="indefinite"/>
+  </path>
+  <circle cx="${w*.44}" cy="${w*.645}" r="${w*.02}" fill="#74B3E8"/>
+  <!-- Tusks (ivory 3D) -->
+  <path d="M${w*.41} ${w*.52}Q${w*.37} ${w*.59} ${w*.39} ${w*.57}" stroke="#FFFDE7" stroke-width="${w*.018}" fill="none" stroke-linecap="round"/>
+  <path d="M${w*.59} ${w*.52}Q${w*.63} ${w*.59} ${w*.61} ${w*.57}" stroke="#FFFDE7" stroke-width="${w*.018}" fill="none" stroke-linecap="round"/>
   ${eyeMap[m]}${mouthMap[m]}${blush}
-  <!-- Crown/hat -->
-  <text x="${w*.5}" y="${w*.2}" font-size="${w*.12}" text-anchor="middle">🎓</text>
+  <!-- Crown -->
+  <text x="${w*.5}" y="${w*.2}" font-size="${w*.13}" text-anchor="middle" style="filter:drop-shadow(0 ${w*.01}px ${w*.01}px rgba(0,0,0,.15))">🎓</text>
   </svg>`;
 }
 
 function CatSvg(sz=60,mood='happy'){
   const w=sz;
-  const eyes=mood==='happy'?`<ellipse cx="${w*.4}" cy="${w*.42}" rx="${w*.03}" ry="${w*.04}" fill="#4a3728"/><ellipse cx="${w*.6}" cy="${w*.42}" rx="${w*.03}" ry="${w*.04}" fill="#4a3728"/><circle cx="${w*.41}" cy="${w*.41}" r="${w*.01}" fill="#fff"/><circle cx="${w*.61}" cy="${w*.41}" r="${w*.01}" fill="#fff"/>`:mood==='love'?`<text x="${w*.4}" y="${w*.45}" font-size="${w*.07}" text-anchor="middle" fill="#f472b6">♥</text><text x="${w*.6}" y="${w*.45}" font-size="${w*.07}" text-anchor="middle" fill="#f472b6">♥</text>`:`<path d="M${w*.37} ${w*.44}H${w*.43}" stroke="#4a3728" stroke-width="${w*.015}" stroke-linecap="round"/><path d="M${w*.57} ${w*.44}H${w*.63}" stroke="#4a3728" stroke-width="${w*.015}" stroke-linecap="round"/>`;
+  const eyes=mood==='happy'?`<ellipse cx="${w*.39}" cy="${w*.42}" rx="${w*.032}" ry="${w*.042}" fill="#3E2723"/><ellipse cx="${w*.61}" cy="${w*.42}" rx="${w*.032}" ry="${w*.042}" fill="#3E2723"/><ellipse cx="${w*.394}" cy="${w*.412}" rx="${w*.013}" ry="${w*.016}" fill="#fff"/><ellipse cx="${w*.614}" cy="${w*.412}" rx="${w*.013}" ry="${w*.016}" fill="#fff"/><circle cx="${w*.39}" cy="${w*.42}" r="${w*.028}" fill="#64B5F6" opacity=".25"/>< circle cx="${w*.61}" cy="${w*.42}" r="${w*.028}" fill="#64B5F6" opacity=".25"/>`:mood==='love'?`<text x="${w*.39}" y="${w*.45}" font-size="${w*.08}" text-anchor="middle" fill="#FF6B9D">♥</text><text x="${w*.61}" y="${w*.45}" font-size="${w*.08}" text-anchor="middle" fill="#FF6B9D">♥</text>`:`<path d="M${w*.36} ${w*.44}H${w*.42}" stroke="#3E2723" stroke-width="${w*.016}" stroke-linecap="round"/><path d="M${w*.58} ${w*.44}H${w*.64}" stroke="#3E2723" stroke-width="${w*.016}" stroke-linecap="round"/>`;
   return`<svg viewBox="0 0 ${w} ${w}" width="${w}" height="${w}" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="${w*.5}" cy="${w*.92}" rx="${w*.22}" ry="${w*.03}" fill="rgba(0,0,0,.1)"/>
-  <!-- Ears -->
-  <polygon points="${w*.3},${w*.28} ${w*.22},${w*.1} ${w*.38},${w*.22}" fill="#e8d5c4"/>
-  <polygon points="${w*.7},${w*.28} ${w*.78},${w*.1} ${w*.62},${w*.22}" fill="#e8d5c4"/>
-  <polygon points="${w*.31},${w*.28} ${w*.25},${w*.15} ${w*.36},${w*.24}" fill="#f4a4b8" opacity=".5"/>
-  <polygon points="${w*.69},${w*.28} ${w*.75},${w*.15} ${w*.64},${w*.24}" fill="#f4a4b8" opacity=".5"/>
-  <!-- Body -->
-  <ellipse cx="${w*.5}" cy="${w*.72}" rx="${w*.24}" ry="${w*.2}" fill="#e8d5c4"/>
-  <ellipse cx="${w*.5}" cy="${w*.74}" rx="${w*.18}" ry="${w*.14}" fill="#f5ebe0"/>
-  <!-- Tail -->
-  <path d="M${w*.74} ${w*.7}Q${w*.88} ${w*.6} ${w*.85} ${w*.5}" stroke="#c4a882" stroke-width="${w*.04}" fill="none" stroke-linecap="round">
-    <animateTransform attributeName="transform" type="rotate" values="-3 ${w*.74} ${w*.7};8 ${w*.74} ${w*.7};-3 ${w*.74} ${w*.7}" dur="1.5s" repeatCount="indefinite"/>
+  <defs>
+    <radialGradient id="catBody${w}" cx="45%" cy="35%" r="55%"><stop offset="0%" stop-color="#F5E6D3"/><stop offset="60%" stop-color="#E8D5C4"/><stop offset="100%" stop-color="#D4B896"/></radialGradient>
+    <radialGradient id="catHead${w}" cx="42%" cy="30%" r="60%"><stop offset="0%" stop-color="#FAF0E4"/><stop offset="50%" stop-color="#F0DCC8"/><stop offset="100%" stop-color="#E8D5C4"/></radialGradient>
+    <filter id="catShadow${w}"><feDropShadow dx="0" dy="${w*.02}" stdDeviation="${w*.012}" flood-color="#000" flood-opacity=".1"/></filter>
+  </defs>
+  <ellipse cx="${w*.5}" cy="${w*.93}" rx="${w*.2}" ry="${w*.025}" fill="rgba(0,0,0,.06)"/>
+  <!-- Ears (3D) -->
+  <polygon points="${w*.3},${w*.28} ${w*.21},${w*.08} ${w*.39},${w*.22}" fill="#E0C8A8"/>
+  <polygon points="${w*.7},${w*.28} ${w*.79},${w*.08} ${w*.61},${w*.22}" fill="#E0C8A8"/>
+  <polygon points="${w*.31},${w*.27} ${w*.24},${w*.13} ${w*.37},${w*.23}" fill="#FFB6C1" opacity=".45"/>
+  <polygon points="${w*.69},${w*.27} ${w*.76},${w*.13} ${w*.63},${w*.23}" fill="#FFB6C1" opacity=".45"/>
+  <!-- Body (3D) -->
+  <ellipse cx="${w*.5}" cy="${w*.72}" rx="${w*.24}" ry="${w*.2}" fill="url(#catBody${w})" filter="url(#catShadow${w})"/>
+  <ellipse cx="${w*.5}" cy="${w*.74}" rx="${w*.17}" ry="${w*.13}" fill="#FAF0E4" opacity=".6"/>
+  <!-- Ragdoll markings -->
+  <ellipse cx="${w*.5}" cy="${w*.66}" rx="${w*.08}" ry="${w*.06}" fill="#D4B896" opacity=".2"/>
+  <!-- Tail (fluffy) -->
+  <path d="M${w*.74} ${w*.7}Q${w*.88} ${w*.58} ${w*.84} ${w*.48}" stroke="#D4B896" stroke-width="${w*.05}" fill="none" stroke-linecap="round">
+    <animateTransform attributeName="transform" type="rotate" values="-3 ${w*.74} ${w*.7};10 ${w*.74} ${w*.7};-3 ${w*.74} ${w*.7}" dur="1.8s" repeatCount="indefinite"/>
   </path>
-  <!-- Paws -->
-  <ellipse cx="${w*.36}" cy="${w*.88}" rx="${w*.06}" ry="${w*.04}" fill="#c4a882"/>
-  <ellipse cx="${w*.64}" cy="${w*.88}" rx="${w*.06}" ry="${w*.04}" fill="#c4a882"/>
-  <!-- Head -->
-  <ellipse cx="${w*.5}" cy="${w*.4}" rx="${w*.2}" ry="${w*.18}" fill="#e8d5c4"/>
-  <ellipse cx="${w*.5}" cy="${w*.42}" rx="${w*.14}" ry="${w*.1}" fill="#f5ebe0"/>
-  <!-- Face markings (Ragdoll) -->
-  <path d="M${w*.5} ${w*.3}L${w*.5} ${w*.46}" stroke="#c4a882" stroke-width="${w*.02}" opacity=".3"/>
+  <path d="M${w*.74} ${w*.7}Q${w*.88} ${w*.58} ${w*.84} ${w*.48}" stroke="#E8D5C4" stroke-width="${w*.025}" fill="none" stroke-linecap="round" opacity=".5">
+    <animateTransform attributeName="transform" type="rotate" values="-3 ${w*.74} ${w*.7};10 ${w*.74} ${w*.7};-3 ${w*.74} ${w*.7}" dur="1.8s" repeatCount="indefinite"/>
+  </path>
+  <!-- Paws (3D) -->
+  <ellipse cx="${w*.36}" cy="${w*.88}" rx="${w*.065}" ry="${w*.035}" fill="#D4B896"/>
+  <ellipse cx="${w*.36}" cy="${w*.875}" rx="${w*.04}" ry="${w*.02}" fill="#E8D5C4" opacity=".5"/>
+  <ellipse cx="${w*.64}" cy="${w*.88}" rx="${w*.065}" ry="${w*.035}" fill="#D4B896"/>
+  <ellipse cx="${w*.64}" cy="${w*.875}" rx="${w*.04}" ry="${w*.02}" fill="#E8D5C4" opacity=".5"/>
+  <!-- Head (3D sphere) -->
+  <ellipse cx="${w*.5}" cy="${w*.4}" rx="${w*.21}" ry="${w*.19}" fill="url(#catHead${w})" filter="url(#catShadow${w})"/>
+  <!-- Specular highlight -->
+  <ellipse cx="${w*.45}" cy="${w*.34}" rx="${w*.08}" ry="${w*.05}" fill="#fff" opacity=".25"/>
+  <ellipse cx="${w*.43}" cy="${w*.33}" rx="${w*.03}" ry="${w*.02}" fill="#fff" opacity=".2"/>
+  <!-- Ragdoll face mask (V-shape) -->
+  <path d="M${w*.5} ${w*.29}L${w*.44} ${w*.36}L${w*.5} ${w*.47}L${w*.56} ${w*.36}Z" fill="#D4B896" opacity=".15"/>
+  <ellipse cx="${w*.5}" cy="${w*.43}" rx="${w*.13}" ry="${w*.09}" fill="#FAF0E4" opacity=".5"/>
   ${eyes}
-  <!-- Nose -->
-  <ellipse cx="${w*.5}" cy="${w*.48}" rx="${w*.02}" ry="${w*.015}" fill="#f4a4b8"/>
+  <!-- Nose (3D pink) -->
+  <ellipse cx="${w*.5}" cy="${w*.48}" rx="${w*.022}" ry="${w*.016}" fill="#FF8A80"/>
+  <ellipse cx="${w*.498}" cy="${w*.477}" rx="${w*.01}" ry="${w*.006}" fill="#FFB8A8" opacity=".5"/>
   <!-- Mouth -->
-  <path d="M${w*.47} ${w*.51}Q${w*.5} ${w*.54} ${w*.53} ${w*.51}" stroke="#4a3728" stroke-width="${w*.008}" fill="none"/>
-  <!-- Whiskers -->
-  <line x1="${w*.3}" y1="${w*.48}" x2="${w*.4}" y2="${w*.49}" stroke="#c4a882" stroke-width=".8" opacity=".4"/>
-  <line x1="${w*.3}" y1="${w*.52}" x2="${w*.4}" y2="${w*.51}" stroke="#c4a882" stroke-width=".8" opacity=".4"/>
-  <line x1="${w*.7}" y1="${w*.48}" x2="${w*.6}" y2="${w*.49}" stroke="#c4a882" stroke-width=".8" opacity=".4"/>
-  <line x1="${w*.7}" y1="${w*.52}" x2="${w*.6}" y2="${w*.51}" stroke="#c4a882" stroke-width=".8" opacity=".4"/>
-  <!-- Blue eyes (Ragdoll) -->
-  ${mood==='happy'||mood==='excited'?`<circle cx="${w*.4}" cy="${w*.42}" r="${w*.025}" fill="#60a5fa" opacity=".3"/><circle cx="${w*.6}" cy="${w*.42}" r="${w*.025}" fill="#60a5fa" opacity=".3"/>`:''}
+  <path d="M${w*.47} ${w*.505}Q${w*.5} ${w*.535} ${w*.53} ${w*.505}" stroke="#5D4037" stroke-width="${w*.009}" fill="none" stroke-linecap="round"/>
+  <!-- Whiskers (delicate) -->
+  <line x1="${w*.28}" y1="${w*.475}" x2="${w*.4}" y2="${w*.485}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".5"/>
+  <line x1="${w*.28}" y1="${w*.52}" x2="${w*.4}" y2="${w*.505}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".5"/>
+  <line x1="${w*.29}" y1="${w*.498}" x2="${w*.4}" y2="${w*.495}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".4"/>
+  <line x1="${w*.72}" y1="${w*.475}" x2="${w*.6}" y2="${w*.485}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".5"/>
+  <line x1="${w*.72}" y1="${w*.52}" x2="${w*.6}" y2="${w*.505}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".5"/>
+  <line x1="${w*.71}" y1="${w*.498}" x2="${w*.6}" y2="${w*.495}" stroke="#D4B896" stroke-width="${w*.006}" opacity=".4"/>
+  <!-- Blush -->
+  ${mood!=='sad'?`<ellipse cx="${w*.35}" cy="${w*.46}" rx="${w*.025}" ry="${w*.012}" fill="#FFAB91" opacity=".3"/><ellipse cx="${w*.65}" cy="${w*.46}" rx="${w*.025}" ry="${w*.012}" fill="#FFAB91" opacity=".3"/>`:``}
   </svg>`;
 }
 
