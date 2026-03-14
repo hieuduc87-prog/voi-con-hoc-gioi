@@ -64,10 +64,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 .btn-go{background:linear-gradient(135deg,#ff5a9e,#e040a0,#b44dff);border:none;border-radius:60px;padding:18px 52px;font-size:20px;font-weight:800;color:#fff;cursor:pointer;font-family:'Baloo 2',cursive;box-shadow:0 7px 0 rgba(140,20,80,.6),0 12px 40px rgba(255,90,158,.35),var(--shine);animation:float 2s ease-in-out infinite;position:relative;overflow:hidden;text-shadow:0 2px 4px rgba(0,0,0,.2);letter-spacing:.5px}
 .btn-go:active{transform:translateY(5px)!important;box-shadow:0 2px 0 rgba(140,20,80,.6),0 4px 12px rgba(255,90,158,.3),var(--shine)}
 .btn-go::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.2),transparent);transform:rotate(25deg);animation:btnShine 3s infinite}
-/* ===== LOGIN INPUTS ===== */
-#login input{width:100%;padding:14px 18px;border-radius:16px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:8px;outline:none;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.15),var(--shine);transition:all .2s}
-#login input:focus{border-color:var(--pink);box-shadow:0 4px 0 rgba(0,0,0,.15),0 0 0 3px rgba(255,90,158,.15),var(--shine)}
-#login input::placeholder{color:rgba(255,255,255,.35)}
+/* (login input styles now via .login-input class) */
 /* ===== TOP BAR ===== */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;z-index:10}
 .pill{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 10px;font-weight:800;font-size:13px;box-shadow:0 3px 0 rgba(0,0,0,.15),var(--shine);color:var(--text)}
@@ -249,21 +246,48 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 .gem-req-item .gr-status{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:800}
 .gr-pending{background:rgba(255,194,51,.12);color:var(--gold)}
 .gr-approved{background:rgba(45,219,166,.12);color:var(--mint)}
-/* ===== REGISTER ===== */
-#register{justify-content:center;align-items:center;text-align:center;padding:24px;gap:6px;overflow-y:auto}
-#register input{width:100%;padding:14px 18px;border-radius:16px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--text);font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:8px;outline:none;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.15),var(--shine);transition:all .2s}
-#register input:focus{border-color:var(--pink);box-shadow:0 4px 0 rgba(0,0,0,.15),0 0 0 3px rgba(255,90,158,.15),var(--shine)}
-#register input::placeholder{color:rgba(255,255,255,.35)}
-.reg-label{font-family:'Baloo 2',cursive;font-size:14px;color:var(--gold);margin:12px 0 6px;text-shadow:0 0 12px rgba(255,194,51,.3)}
-.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:280px;margin:0 auto}
-.reg-card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:2.5px solid rgba(255,255,255,.12);border-radius:20px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .25s;box-shadow:0 5px 0 rgba(0,0,0,.2),var(--shine)}
-.reg-card:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.2),var(--shine)}
-.reg-card.selected{border-color:var(--gold);background:rgba(255,194,51,.12);box-shadow:0 5px 0 rgba(0,0,0,.2),0 0 24px rgba(255,194,51,.3),var(--shine)}
-.reg-card .rc-img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
-.reg-card .rc-name{font-size:12px;font-weight:800;margin-top:4px;color:var(--text)}
-.auth-link{font-size:12px;color:var(--sky);cursor:pointer;font-weight:700;margin-top:8px;text-decoration:underline}
+/* ===== LOGIN / REGISTER ===== */
+.login-page{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}
+.login-sparkles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.login-sparkle{position:absolute;width:5px;height:5px;border-radius:50%;opacity:0;animation:lSparkle var(--dur,4s) var(--del,0s) infinite}
+@keyframes lSparkle{0%,100%{opacity:0;transform:scale(0)}40%{opacity:1;transform:scale(1.2)}60%{opacity:.8;transform:scale(1)}}
+.login-card{position:relative;z-index:2;text-align:center;background:rgba(255,255,255,.08);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1.5px solid rgba(255,255,255,.12);border-radius:32px;padding:28px 24px 24px;max-width:420px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 8px 0 rgba(0,0,0,.2),0 16px 48px rgba(0,0,0,.3),var(--shine);animation:cardIn .6s cubic-bezier(.34,1.56,.64,1)}
+.login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent);border-radius:32px 32px 0 0;pointer-events:none}
+.login-art{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-bottom:6px;animation:float 3s ease-in-out infinite}
+.login-sub{font-size:12px;color:rgba(255,255,255,.4);margin:4px 0 12px;letter-spacing:.5px;font-weight:700}
+.mode-tabs{display:flex;gap:0;margin-bottom:12px;background:rgba(0,0,0,.2);border-radius:16px;padding:3px;border:1px solid rgba(255,255,255,.06)}
+.mode-tab{flex:1;padding:8px 12px;border:none;border-radius:14px;font-size:13px;font-weight:800;color:rgba(255,255,255,.4);cursor:pointer;font-family:'Nunito',sans-serif;background:transparent;transition:all .25s}
+.mode-tab.active{color:#fff;background:rgba(255,255,255,.12);box-shadow:0 3px 0 rgba(0,0,0,.2),var(--shine)}
+.mode-tab:active{transform:scale(.97)}
+.login-error{background:rgba(255,107,122,.15);border:1px solid rgba(255,107,122,.3);border-radius:14px;padding:8px 16px;margin-bottom:10px;font-size:13px;font-weight:700;color:var(--coral);box-shadow:0 3px 0 rgba(0,0,0,.1)}
+.login-success{background:rgba(45,219,166,.15);border:1px solid rgba(45,219,166,.3);border-radius:14px;padding:8px 16px;margin-bottom:10px;font-size:13px;font-weight:700;color:var(--mint);box-shadow:0 3px 0 rgba(0,0,0,.1)}
+.login-form{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:10px}
+.input-wrap{position:relative;display:flex;align-items:center}
+.input-icon{position:absolute;left:14px;font-size:16px;z-index:1}
+.login-input{width:100%;padding:12px 14px 12px 42px;border-radius:16px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:var(--text);font-size:15px;font-weight:700;font-family:'Nunito',sans-serif;outline:none;box-shadow:inset 0 2px 4px rgba(0,0,0,.15);transition:border-color .2s}
+.login-input:focus{border-color:rgba(255,90,158,.5);background:rgba(255,255,255,.12)}
+.login-input::placeholder{color:rgba(255,255,255,.3);font-weight:600}
+.pick-section{margin:2px 0}
+.pick-label{font-size:12px;font-weight:800;color:rgba(255,255,255,.5);margin-bottom:6px;text-align:left}
+.pick-row{display:flex;gap:10px;justify-content:center}
+.pick-card{display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:18px;padding:10px 18px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.5);font-size:12px;font-weight:800;font-family:'Nunito',sans-serif}
+.pick-card.selected{border-color:var(--pink);background:rgba(255,90,158,.15);color:#fff;box-shadow:0 0 16px rgba(255,90,158,.25)}
+.pick-card img{filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.email-opt{margin-top:2px}
+.email-label{font-size:11px;color:rgba(255,255,255,.35);font-weight:700;margin-bottom:6px;text-align:left}
+.btn-login{background:linear-gradient(135deg,#ff5a9e,#e040a0,#b44dff);border:none;border-radius:50px;padding:14px 32px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;font-family:'Baloo 2',cursive;letter-spacing:.3px;box-shadow:0 5px 0 rgba(140,20,80,.5),0 8px 24px rgba(255,90,158,.3),var(--shine);transition:all .1s;position:relative;overflow:hidden;width:100%}
+.btn-login:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(140,20,80,.5),0 3px 8px rgba(255,90,158,.2)}
+.btn-login:disabled{opacity:.7;cursor:not-allowed}
+.btn-login::before{content:'';position:absolute;top:0;left:-50%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:btnShine 3s infinite}
+.btn-guest{background:linear-gradient(135deg,rgba(255,90,158,.15),rgba(180,77,255,.15));border:1.5px solid rgba(255,255,255,.12);border-radius:50px;padding:10px 24px;font-size:13px;font-weight:800;color:rgba(255,255,255,.7);cursor:pointer;margin:0 auto;font-family:'Nunito',sans-serif;display:block;box-shadow:0 3px 0 rgba(0,0,0,.15);transition:all .1s}
+.btn-guest:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.login-hint{color:rgba(255,255,255,.25);font-size:10px;margin-top:6px;font-weight:600}
+.login-footer{display:flex;gap:16px;margin-top:20px;position:relative;z-index:2}
+.login-star{font-size:24px;animation:starBob 2s var(--d,0s) ease-in-out infinite;filter:drop-shadow(0 2px 6px rgba(255,194,51,.5))}
+@keyframes starBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.15)}}
 /* ===== RESPONSIVE ===== */
-@media(max-width:380px){.splash-title{font-size:28px}.sk-grid{gap:10px;padding:8px 12px}.sk-card .se{font-size:32px}.qt{font-size:24px!important}.abtn{padding:14px 8px;font-size:16px;min-height:48px}}
+@media(max-width:380px){.splash-title{font-size:28px}.sk-grid{gap:10px;padding:8px 12px}.sk-card .se{font-size:32px}.qt{font-size:24px!important}.abtn{padding:14px 8px;font-size:16px;min-height:48px}
+  .login-card{padding:22px 18px 20px;border-radius:24px}.login-card h1{font-size:20px!important}.login-art img{width:50px!important;height:auto!important}.btn-login{padding:12px 24px;font-size:15px}.login-input{padding:10px 12px 10px 38px;font-size:14px}.mode-tab{font-size:12px;padding:7px 8px}.pick-card{padding:8px 14px}.pick-card img{width:40px!important;height:auto!important}}
 @media(min-width:430px){.sk-grid{max-width:420px;margin:0 auto}.garea{max-width:440px}}
 </style>
 </head>
@@ -272,45 +296,28 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
 <div class="sparkle-box" id="sparkleBox"></div>
 <div class="combo-d" id="comboD"></div>
 
-<!-- LOGIN -->
+<!-- LOGIN / REGISTER -->
 <div id="login" class="screen active">
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center">
-    <div id="loginArt" style="margin-bottom:10px"></div>
-    <div class="splash-title">Vương Quốc Học Giỏi</div>
-    <div class="splash-sub" style="margin-bottom:16px">Đăng Nhập</div>
-    <div style="width:100%;max-width:280px">
-      <input id="loginUser" type="text" placeholder="Tên đăng nhập">
-      <input id="loginPass" type="password" placeholder="Mật khẩu" onkeydown="if(event.key==='Enter')doLogin()">
-      <div id="loginErr" style="color:var(--coral);font-size:12px;font-weight:800;min-height:20px;margin-bottom:8px"></div>
-      <button class="btn-go" onclick="doLogin()" style="width:100%">🏰 Đăng Nhập</button>
-      <div class="auth-link" onclick="showScreen('register')">Chưa có tài khoản? Đăng ký ngay!</div>
+  <div class="login-page">
+    <div class="login-sparkles" id="loginSparkles"></div>
+    <div class="login-card">
+      <div class="login-art" id="loginArt"></div>
+      <h1 class="splash-title" style="font-size:24px">Vương Quốc Học Giỏi</h1>
+      <p class="login-sub">Toán · Tiếng Việt · English</p>
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="setAuthMode('login')">🔑 Đăng nhập</button>
+        <button class="mode-tab" onclick="setAuthMode('register')">✨ Đăng ký</button>
+      </div>
+      <div id="authErr"></div>
+      <div id="authSuccess"></div>
+      <div class="login-form" id="authForm"></div>
+      <button class="btn-guest" onclick="doGuest()">🎮 Chơi không đăng nhập</button>
+      <p class="login-hint">(Chơi khách: tiến trình chỉ lưu trên thiết bị)</p>
     </div>
-  </div>
-</div>
-
-<!-- REGISTER -->
-<div id="register" class="screen">
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:24px;text-align:center;overflow-y:auto">
-    <div class="splash-title" style="font-size:26px">Vương Quốc Học Giỏi</div>
-    <div class="splash-sub" style="margin-bottom:12px;font-size:15px">Tạo Tài Khoản Mới</div>
-    <div style="width:100%;max-width:280px">
-      <input id="regName" type="text" placeholder="Tên bé (VD: Bảo, Uyên Nhi...)">
-      <input id="regUser" type="text" placeholder="Tên đăng nhập">
-      <input id="regPass" type="password" placeholder="Mật khẩu (ít nhất 4 ký tự)">
-      <input id="regEmail" type="email" placeholder="Email (không bắt buộc)">
-      <div class="reg-label">Chọn nhân vật</div>
-      <div class="reg-grid">
-        <div class="reg-card selected" onclick="selGender('boy',this)"><img src="voi.png" class="rc-img"><div class="rc-name">Bạn Trai</div></div>
-        <div class="reg-card" onclick="selGender('girl',this)"><img src="uyennhi.png" class="rc-img"><div class="rc-name">Bạn Gái</div></div>
-      </div>
-      <div class="reg-label">Chọn thú cưng</div>
-      <div class="reg-grid">
-        <div class="reg-card selected" onclick="selPet('cat',this)"><img src="cat.png" class="rc-img"><div class="rc-name">Mèo</div></div>
-        <div class="reg-card" onclick="selPet('corgi',this)"><img src="corgi.png" class="rc-img"><div class="rc-name">Corgi</div></div>
-      </div>
-      <div id="regErr" style="color:var(--coral);font-size:12px;font-weight:800;min-height:20px;margin:8px 0 4px"></div>
-      <button class="btn-go" onclick="doRegister()" style="width:100%;font-size:17px">🏰 Tạo Tài Khoản</button>
-      <div class="auth-link" onclick="showScreen('login')">Đã có tài khoản? Đăng nhập</div>
+    <div class="login-footer">
+      <span class="login-star" style="--d:0s">⭐</span>
+      <span class="login-star" style="--d:0.5s">🌟</span>
+      <span class="login-star" style="--d:1s">✨</span>
     </div>
   </div>
 </div>
@@ -429,9 +436,37 @@ function Duo(cSz,pSz,mood,anim){
 function ElSvg(sz){return CharImg(sz)}
 function CatSvg(sz){return PetImg(sz)}
 // Register helpers
-let regGender='boy',regPet='cat';
-function selGender(g,el){regGender=g;el.parentElement.querySelectorAll('.reg-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
-function selPet(p,el){regPet=p;el.parentElement.querySelectorAll('.reg-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+let regGender='boy',regPet='cat',authMode='login';
+function selGender(g,el){regGender=g;el.parentElement.querySelectorAll('.pick-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');
+  const art=document.getElementById('loginArt');if(art){const ps=PROF.pet==='corgi'?'corgi.png':'cat.png';art.innerHTML=`<img src="${g==='girl'?'uyennhi.png':'voi.png'}" width="75" height="100" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))"><img src="${ps}" width="70" height="70" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))">`}}
+function selPet(p,el){regPet=p;el.parentElement.querySelectorAll('.pick-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');
+  const art=document.getElementById('loginArt');if(art){const cs=regGender==='girl'?'uyennhi.png':'voi.png';art.innerHTML=`<img src="${cs}" width="75" height="100" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))"><img src="${p==='corgi'?'corgi.png':'cat.png'}" width="70" height="70" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))">`}}
+function setAuthMode(m){authMode=m;document.querySelectorAll('.mode-tab').forEach((t,i)=>t.classList.toggle('active',i===(m==='login'?0:1)));renderAuthForm();clearAuthMsg()}
+function clearAuthMsg(){const e=document.getElementById('authErr');if(e)e.innerHTML='';const s=document.getElementById('authSuccess');if(s)s.innerHTML=''}
+function showAuthErr(msg){const e=document.getElementById('authErr');if(e)e.innerHTML=`<div class="login-error">${msg}</div>`}
+function showAuthSuccess(msg){const s=document.getElementById('authSuccess');if(s)s.innerHTML=`<div class="login-success">${msg}</div>`}
+function renderAuthForm(){
+  const f=document.getElementById('authForm');if(!f)return;
+  if(authMode==='register'){
+    f.innerHTML=`<div class="input-wrap"><span class="input-icon">🌟</span><input class="login-input" id="regName" type="text" placeholder="Tên bé (VD: Bảo Ngọc)" autocomplete="off"></div>
+    <div class="pick-section"><p class="pick-label">Chọn nhân vật:</p><div class="pick-row">
+      <button type="button" class="pick-card${regGender==='boy'?' selected':''}" onclick="selGender('boy',this)"><img src="voi.png" width="50" height="60" style="object-fit:contain"><span>Bé trai</span></button>
+      <button type="button" class="pick-card${regGender==='girl'?' selected':''}" onclick="selGender('girl',this)"><img src="uyennhi.png" width="50" height="60" style="object-fit:contain"><span>Bé gái</span></button>
+    </div></div>
+    <div class="pick-section"><p class="pick-label">Chọn thú cưng:</p><div class="pick-row">
+      <button type="button" class="pick-card${regPet==='cat'?' selected':''}" onclick="selPet('cat',this)"><img src="cat.png" width="50" height="50" style="object-fit:contain"><span>Mèo</span></button>
+      <button type="button" class="pick-card${regPet==='corgi'?' selected':''}" onclick="selPet('corgi',this)"><img src="corgi.png" width="50" height="50" style="object-fit:contain"><span>Corgi</span></button>
+    </div></div>
+    <div class="input-wrap"><span class="input-icon">👤</span><input class="login-input" id="regUser" type="text" placeholder="Tên đăng nhập" autocomplete="username" autocapitalize="off"></div>
+    <div class="input-wrap"><span class="input-icon">🔑</span><input class="login-input" id="regPass" type="password" placeholder="Mật khẩu (ít nhất 4 ký tự)" autocomplete="new-password"></div>
+    <div class="email-opt"><p class="email-label">📧 Email (không bắt buộc — dùng khi quên mật khẩu)</p><div class="input-wrap"><span class="input-icon">📧</span><input class="login-input" id="regEmail" type="email" placeholder="Email khôi phục" autocomplete="email"></div></div>
+    <button class="btn-login" onclick="doRegister()">🎉 Tạo tài khoản</button>`;
+  } else {
+    f.innerHTML=`<div class="input-wrap"><span class="input-icon">👤</span><input class="login-input" id="loginUser" type="text" placeholder="Tên đăng nhập" autocomplete="username" autocapitalize="off"></div>
+    <div class="input-wrap"><span class="input-icon">🔑</span><input class="login-input" id="loginPass" type="password" placeholder="Mật khẩu" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login" onclick="doLogin()">🚀 Đăng nhập</button>`;
+  }
+}
 
 // ===== DATA =====
 let SK='voicon_lop1_v1';let D=ld();
@@ -810,35 +845,40 @@ function spawnConf(){const c=document.getElementById('confetti');c.innerHTML='';
 // ===== AUTH (Supabase) =====
 let loggedIn=false;
 async function doLogin(){
-  const u=document.getElementById('loginUser').value.trim().toLowerCase();
-  const p=document.getElementById('loginPass').value;
-  const err=document.getElementById('loginErr');
-  if(!u||!p){err.textContent='Nhập đầy đủ nha!';return}
-  err.textContent='Đang đăng nhập...';
+  const u=document.getElementById('loginUser')?.value.trim().toLowerCase();
+  const p=document.getElementById('loginPass')?.value;
+  if(!u||!p){showAuthErr('Nhập đầy đủ nha!');return}
+  clearAuthMsg();showAuthSuccess('Đang đăng nhập...');
   try{
     const r=await fetch(`${SB_URL}/rest/v1/users?username=eq.${encodeURIComponent(u)}&password=eq.${encodeURIComponent(p)}&limit=1`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
     const rows=await r.json();
-    if(!rows||rows.length===0){err.textContent='Sai tên đăng nhập hoặc mật khẩu!';return}
-    loginAs(rows[0]);err.textContent='';
-  }catch(e){err.textContent='Lỗi kết nối! Thử lại nhé.';console.error(e)}
+    if(!rows||rows.length===0){clearAuthMsg();showAuthErr('Sai tên đăng nhập hoặc mật khẩu!');return}
+    loginAs(rows[0]);
+  }catch(e){clearAuthMsg();showAuthErr('Lỗi kết nối! Thử lại nhé.');console.error(e)}
 }
 async function doRegister(){
-  const name=document.getElementById('regName').value.trim();
-  const u=document.getElementById('regUser').value.trim().toLowerCase();
-  const p=document.getElementById('regPass').value;
-  const email=document.getElementById('regEmail').value.trim();
-  const err=document.getElementById('regErr');
-  if(!name){err.textContent='Nhập tên bé nha!';return}
-  if(!u||u.length<3){err.textContent='Tên đăng nhập ít nhất 3 ký tự!';return}
-  if(!p||p.length<4){err.textContent='Mật khẩu ít nhất 4 ký tự!';return}
-  err.textContent='Đang tạo tài khoản...';
+  const name=document.getElementById('regName')?.value.trim();
+  const u=document.getElementById('regUser')?.value.trim().toLowerCase();
+  const p=document.getElementById('regPass')?.value;
+  const email=document.getElementById('regEmail')?.value.trim();
+  if(!name){showAuthErr('Nhập tên bé nha!');return}
+  if(!u||u.length<3){showAuthErr('Tên đăng nhập ít nhất 3 ký tự!');return}
+  if(!p||p.length<4){showAuthErr('Mật khẩu ít nhất 4 ký tự!');return}
+  clearAuthMsg();showAuthSuccess('Đang tạo tài khoản...');
   try{
     const body={username:u,password:p,display_name:name,gender:regGender,pet:regPet,grade:1};
     if(email)body.email=email;
     const r=await fetch(`${SB_URL}/rest/v1/users`,{method:'POST',headers:{...sbH,'Prefer':'return=representation'},body:JSON.stringify(body)});
-    if(!r.ok){const e=await r.json();err.textContent=e.message?.includes('unique')?'Tên đăng nhập đã tồn tại!':(e.message||'Lỗi tạo tài khoản!');return}
-    const rows=await r.json();loginAs(Array.isArray(rows)?rows[0]:rows);err.textContent='';
-  }catch(e){err.textContent='Lỗi kết nối! Thử lại nhé.';console.error(e)}
+    if(!r.ok){const e=await r.json();clearAuthMsg();showAuthErr(e.message?.includes('unique')?'Tên đăng nhập đã tồn tại!':(e.message||'Lỗi tạo tài khoản!'));return}
+    const rows=await r.json();loginAs(Array.isArray(rows)?rows[0]:rows);
+  }catch(e){clearAuthMsg();showAuthErr('Lỗi kết nối! Thử lại nhé.');console.error(e)}
+}
+function doGuest(){
+  PROF={gender:'boy',pet:'cat',display_name:'Khách'};
+  saveProf(PROF);PID='guest_'+Date.now();SK='voicon_lop1_guest';D=ld();
+  updateAvatars();
+  const sg=document.getElementById('splashGreet');if(sg)sg.textContent='Chào bạn nhỏ! 🎓';
+  showScreen('splash');upUI();
 }
 function loginAs(user){
   loggedIn=true;PID=user.username;
@@ -927,10 +967,14 @@ sv=function(){_svOrig();clearTimeout(_sbTimer);_sbTimer=setTimeout(sbSave,3000)}
 // SPARKLES
 (function(){const box=document.getElementById('sparkleBox');if(!box)return;const cols=['#ff5a9e','#ffc233','#b44dff','#3dc2ff','#2ddba6'];for(let i=0;i<20;i++){const s=document.createElement('div');s.className='sparkle';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${3+Math.random()*4}px;height:${3+Math.random()*4}px;background:${cols[i%cols.length]};--dur:${3+Math.random()*4}s;--del:${Math.random()*4}s`;box.appendChild(s)}})();
 
+// LOGIN SPARKLES
+(function(){const box=document.getElementById('loginSparkles');if(!box)return;const cols=['#ff5a9e','#ffc233','#b44dff','#3dc2ff','#2ddba6'];for(let i=0;i<20;i++){const s=document.createElement('div');s.className='login-sparkle';s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:5px;height:5px;background:${cols[i%cols.length]};--dur:${2+Math.random()*3}s;--del:${Math.random()*3}s`;box.appendChild(s)}})();
+
 // INIT
 loadProf();
-document.getElementById('loginArt').innerHTML=Duo(95,65,'excited');
+document.getElementById('loginArt').innerHTML=`<img src="${PROF.gender==='girl'?'uyennhi.png':'voi.png'}" width="75" height="100" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))"><img src="${PROF.pet==='corgi'?'corgi.png':'cat.png'}" width="70" height="70" style="object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))">`;
 document.getElementById('splashArt').innerHTML=Duo(115,80,'excited');
+renderAuthForm();
 tryAutoLogin();
 </script>
 </body>
