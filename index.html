@@ -142,8 +142,23 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradi
 <body>
 <div class="combo-d" id="comboD"></div>
 
+<!-- LOGIN -->
+<div id="login" class="screen active">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center">
+    <div id="loginArt" style="margin-bottom:10px"></div>
+    <div class="splash-title">Voi Con & Mèo Bông</div>
+    <div class="splash-sub" style="margin-bottom:16px">Đăng Nhập</div>
+    <div style="width:100%;max-width:280px">
+      <input id="loginUser" type="text" placeholder="Tên đăng nhập" style="width:100%;padding:12px 16px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:8px;outline:none;text-align:center" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'">
+      <input id="loginPass" type="password" placeholder="Mật khẩu" style="width:100%;padding:12px 16px;border-radius:14px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:4px;outline:none;text-align:center" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'" onkeydown="if(event.key==='Enter')doLogin()">
+      <div id="loginErr" style="color:var(--coral);font-size:12px;font-weight:700;min-height:20px;margin-bottom:8px"></div>
+      <button class="btn-go" onclick="doLogin()" style="width:100%">🐘 Đăng Nhập</button>
+    </div>
+  </div>
+</div>
+
 <!-- SPLASH -->
-<div id="splash" class="screen active">
+<div id="splash" class="screen">
   <div id="splashArt" style="margin-bottom:6px"></div>
   <div class="splash-title">Voi Con & Mèo Bông</div>
   <div class="splash-sub">Học Giỏi Lớp 1! 🎓</div>
@@ -214,7 +229,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradi
 
 <!-- PROFILE -->
 <div id="profile" class="screen">
-  <div class="topbar"><span style="font-weight:700">👤 Hồ sơ</span><button class="bbk" onclick="resetAll()">🔄 Reset</button></div>
+  <div class="topbar"><span style="font-weight:700">👤 Hồ sơ</span><div style="display:flex;gap:4px"><button class="bbk" onclick="doLogout()">🚪 Thoát</button><button class="bbk" onclick="resetAll()">🔄 Reset</button></div></div>
   <div class="phero">
     <div id="pAv" style="margin:0 auto 6px"></div>
     <div class="pname">Nhà Thám Hiểm Nhí</div>
@@ -314,7 +329,7 @@ function CatSvg(sz=60,mood='happy'){
 }
 
 // ===== DATA =====
-const SK='voicon_lop1_v1';let D=ld();
+let SK='voicon_lop1_v1';let D=ld();
 function df(){return{level:1,xp:0,stars:0,gems:0,streak:0,lp:null,sp:{},lvDone:{},tc:0,tp:0,combo:0,mc:0,tickets:0,daily:{d:null,m:[]}}}
 function ld(){try{const d=JSON.parse(localStorage.getItem(SK));if(d&&d.level)return d}catch(e){}return df()}
 function sv(){try{localStorage.setItem(SK,JSON.stringify(D))}catch(e){}}
@@ -503,7 +518,11 @@ function endR(){
   D.tickets+=newTickets;
   while(D.xp>=D.level*80){D.xp-=D.level*80;D.level++}
   if(cSkill&&cSkill.isLv&&acc>=60)D.lvDone[cSkill.id]=true;
-  sv();showScreen('result');
+  sv();
+  // Save game history to Supabase
+  const subName=SUBS[cSub].id;
+  sbSaveHistory(subName,cLv,correct,QN,stars,xpE);
+  showScreen('result');
   const mood=stars>=3?'love':stars>=2?'excited':stars>=1?'happy':'sad';
   document.getElementById('rScene').innerHTML=`<div style="display:inline-flex;align-items:end" class="${stars>=2?'a-wiggle':''}">${ElSvg(stars>=2?100:80,mood)}<div style="margin-left:-10px">${CatSvg(50,mood)}</div></div>`;
   document.getElementById('rT').textContent=stars>=3?'XUẤT SẮC! 🏆':stars>=2?'Giỏi lắm! 🎉':stars>=1?'Cố gắng thêm! 💪':'Lần sau nhé! 🤗';
@@ -585,10 +604,33 @@ function renderProf(){
 
 function spawnConf(){const c=document.getElementById('confetti');c.innerHTML='';const cols=['#fbbf24','#3b82f6','#f472b6','#22d3ee','#4ade80','#fb7185'];for(let i=0;i<35;i++){const p=document.createElement('div');p.className='conf';p.style.left=R(0,100)+'%';p.style.background=cols[R(0,5)];p.style.setProperty('--del',(R(0,20)/10)+'s');p.style.setProperty('--dur',(R(20,35)/10)+'s');p.style.width=R(5,10)+'px';p.style.height=R(5,10)+'px';p.style.borderRadius=Math.random()>.5?'50%':'2px';c.appendChild(p)}setTimeout(()=>c.innerHTML='',4000)}
 
+// ===== AUTH =====
+const USERS={voicon:'123456'};
+let loggedIn=false;
+function doLogin(){
+  const u=document.getElementById('loginUser').value.trim().toLowerCase();
+  const p=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginErr');
+  if(!u||!p){err.textContent='Nhập đầy đủ nha!';return}
+  if(!USERS[u]){err.textContent='Sai tên đăng nhập!';return}
+  if(USERS[u]!==p){err.textContent='Sai mật khẩu!';return}
+  loggedIn=true;PID=u;
+  localStorage.setItem('voicon_user',u);
+  SK='voicon_lop1_'+u;D=ld();
+  err.textContent='';
+  showScreen('splash');
+  checkStreak();upUI();sbLoad();
+}
+// Auto-login if saved
+function tryAutoLogin(){
+  const u=localStorage.getItem('voicon_user');
+  if(u&&USERS[u]){loggedIn=true;PID=u;SK='voicon_lop1_'+u;D=ld();showScreen('splash');checkStreak();upUI();sbLoad()}
+}
+
 // ===== SUPABASE SYNC =====
 const SB_URL='https://phfjjdbspcviktlwvtfp.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoZmpqZGJzcGN2aWt0bHd2dGZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODY5ODYsImV4cCI6MjA4OTA2Mjk4Nn0.Ati3ikbHYxSZT_iDLKej9zbkSR2iMeQQROA53RexG-w';
-const PID='voicon_player1';
+let PID='voicon_player1';
 const sbH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
 
 async function sbSave(){
@@ -622,13 +664,28 @@ async function sbLoad(){
   }catch(e){console.warn('Supabase load fail:',e)}
 }
 
+// ===== GAME HISTORY =====
+async function sbSaveHistory(subject,level,correct,total,stars,xpEarned){
+  try{
+    await fetch(`${SB_URL}/rest/v1/game_history`,{method:'POST',headers:sbH,
+      body:JSON.stringify({player_id:PID,subject,level,correct,total,stars,xp_earned:xpEarned,played_at:new Date().toISOString()})});
+  }catch(e){console.warn('History save fail:',e)}
+}
+
+function doLogout(){
+  localStorage.removeItem('voicon_user');loggedIn=false;
+  document.getElementById('bnav').style.display='none';
+  showScreen('login');
+}
+
 // Override sv to also sync to cloud (debounced)
 const _svOrig=sv;let _sbTimer=null;
 sv=function(){_svOrig();clearTimeout(_sbTimer);_sbTimer=setTimeout(sbSave,3000)};
 
 // INIT
+document.getElementById('loginArt').innerHTML=`<div style="display:inline-flex;align-items:end;gap:0"><div class="a-float">${ElSvg(90,'excited')}</div><div style="margin-left:-14px;animation:float 3s .3s ease-in-out infinite">${CatSvg(65,'happy')}</div></div>`;
 document.getElementById('splashArt').innerHTML=`<div style="display:inline-flex;align-items:end;gap:0"><div class="a-float">${ElSvg(110,'excited')}</div><div style="margin-left:-18px;animation:float 3s .3s ease-in-out infinite">${CatSvg(80,'happy')}</div></div>`;
-checkStreak();upUI();sbLoad();
+tryAutoLogin();
 </script>
 </body>
 </html>
